@@ -1,0 +1,60 @@
+{
+    "longTermOilPrice":65,
+    "oilPriceAverage":52,
+    "opexPerBarrel":4.5,
+    "capexPerBarrel":5.5,
+    "rialExchangeRate":3.75,
+    "sales2016": 200000,
+    "years": [
+        {
+            "year": 2017, 
+            "oilProduction": 10,
+            "ebitdaMargins": 0.2,
+            "depAmtRatio": 25,
+            "taxRate": 10
+        },
+        {
+            "year": 2018, 
+            "oilProduction": 10,
+            "ebitdaMargins": 0.2,
+            "depAmtRatio": 25,
+            "taxRate": 20
+        },
+        {
+            "year": 2019, 
+            "oilProduction": 10,
+            "ebitdaMargins": 0.2,
+            "depAmtRatio": 25,
+            "taxRate": 30
+        },
+        {
+            "year": 2020, 
+            "oilProduction": 10,
+            "ebitdaMargins": 0.22,
+            "depAmtRatio": 25,
+            "taxRate": 30
+        },
+        {
+            "year": 2021, 
+            "oilProduction": 10,
+            "ebitdaMargins": 0.25,
+            "depAmtRatio": 20,
+            "taxRate": 30
+        },
+        {
+            "year": 2022, 
+            "oilProduction": 10,
+            "ebitdaMargins": 0.25,
+            "depAmtRatio": 20,
+            "taxRate": 30
+            
+        },
+        {
+            "year": 2023, 
+            "oilProduction": 10,
+            "ebitdaMargins": 0.35,
+            "depAmtRatio": 15,
+            "taxRate": 30
+        }
+    ]
+}

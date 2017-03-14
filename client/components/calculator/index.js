@@ -1,22 +1,37 @@
-function calculator(){
-	let taxRate = [0,0,0,0];
-	let oilPrice = [0,0,0,0];
+const config = require('./config');
 
-	function oilPrice(x){
-		return 'answer'
+function calculator(){
+	const state = config;
+
+	function calculate(){
+		for(let i in state.years){
+			let currentYear = state.years[i];
+			let oilPrice = state.longTermOilPrice;
+			if(currentYear.year < 2019) oilPrice = state.oilPriceAverage;
+			currentYear.sales = 365 * oilPrice * currentYear.oilProduction;
+
+			if(i === 0){
+				var lastYearSales = state.sales2016;
+			} else {
+				lastYearSales = state.years[i - 1].sales;
+			} 	
+			currentYear.salesGrowth = (currentYear.sales / lastYearSales) - 1;
+
+			currentYear.ebitda = currentYear.ebitdaMargins * currentYear.sales;
+
+			console.log(currentYear);
+		}
+
 	}
 
-}
+	calculate.state = function(o) {
+		Object.assign(state, o);
+		console.log(state);
 
+	}
+	
 
-/*
+	return calculate;
+};
 
-var newCalc = calculator()
-	.taxRate([12,10,30,5])
-	.oilPrice([12,15,20,20]);
-
-newCalc();
-
-newCaluc
-
-*/
+module.exports = calculator;

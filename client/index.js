@@ -18,4 +18,13 @@
 
 */
 
-import * as calculator from './calculator/index';
+import calculator from './components/calculator/index';
+
+var myCalc = calculator();
+
+myCalc.state({
+  longTermOilprice:15.5, 
+  otherthing:"hello"
+});
+
+myCalc();
