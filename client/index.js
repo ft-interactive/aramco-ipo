@@ -17,3 +17,5 @@
             - template.html
 
 */
+
+import * as calculator from './calculator/index';
