@@ -3,8 +3,23 @@
 {% block article_body %}
 {% markdown %}
 <div class="value-visualisation"></div>
-<button id="rise" class="scenario-button">Oil price rise</button>
-<button id="same" class="scenario-button">Oil price stays the same</button>
-<button id="fall" class="scenario-button">Oil price fall</button>
+<button id="rise" class="scenario-button" 
+    data-oilprice="120" 
+    data-taxrate="0.5" 
+    data-production="11">
+    Oil price rise
+</button>
+<button id="same" class="scenario-button" 
+    data-oilprice="65"
+    data-taxrate="0.5" 
+    data-production="10">
+    Oil price stays the same
+</button>
+<button id="fall" class="scenario-button" 
+    data-oilprice="40"
+    data-taxrate="0.7" 
+    data-production="9">
+    Oil price fall
+</button>
 {% endmarkdown %}
 {% endblock %}

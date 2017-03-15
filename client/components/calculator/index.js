@@ -30,6 +30,8 @@ function calculator(){
 
 	calculate.state = function(o) {
 		Object.assign(state, o);
+		console.log(state);
+		calculate();
 	}
 
 	calculate.dispatch = function(){
