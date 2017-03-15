@@ -2,24 +2,58 @@
 
 {% block article_body %}
 {% markdown %}
-<div class="value-visualisation"></div>
-<button id="rise" class="scenario-button" 
-    data-oilprice="120" 
-    data-taxrate="0.5" 
-    data-production="11">
-    Oil price rise
-</button>
-<button id="same" class="scenario-button" 
-    data-oilprice="65"
-    data-taxrate="0.5" 
-    data-production="10">
-    Oil price stays the same
-</button>
-<button id="fall" class="scenario-button" 
-    data-oilprice="40"
-    data-taxrate="0.7" 
-    data-production="9">
-    Oil price fall
-</button>
+<script src="https://ft-interactive.github.io/g-chartcolour/build/g-chartcolour.js"></script>
+<style>
+    input[type="range"]{
+        width: 80%;
+    }
+</style>
+<div class="value-visualisation">
+    <svg preserveAspectRatio="none"></svg>
+</div>
+<div>
+    <p>
+    <button id="rise" class="scenario-button" 
+        data-oilprice="120" 
+        data-taxrate="0.5" 
+        data-production="11"
+        data-marketcap="1000000000000">
+        Blue sky
+    </button>
+    <button id="same" class="scenario-button" 
+        data-oilprice="65"
+        data-taxrate="0.5" 
+        data-production="10"
+        data-marketcap="700000000000">
+        Grey sky
+    </button>
+    <button id="fall" class="scenario-button" 
+        data-oilprice="40"
+        data-taxrate="0.7" 
+        data-production="9"
+        data-marketcap="400000000000">
+        Storm clouds
+    </button>
+</div>
+<div>
+    <p>Set Oil Price per barrel at $<span id="selected-oil-price">52</span> - for all years </p>
+    <input 
+        type="range" 
+        id="oil-price-slider"
+        min=20
+        max=100
+        value=52>
+    </input>
+</div>
+<div>
+    <p>Set Tax Rate at <span id="selected-tax-rate">52</span>% - for all years </p>
+    <input 
+        type="range" 
+        id="tax-rate-slider"
+        min=20
+        max=100
+        value=52>
+    </input>
+</div>
 {% endmarkdown %}
 {% endblock %}

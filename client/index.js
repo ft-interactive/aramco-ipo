@@ -20,21 +20,23 @@
 import * as d3 from 'd3';
 import calculator from './components/calculator/index';
 import valueComparison from './components/value-comparison/index';
+import userInput from './components/user-inputs/index';
+import NPV from './components/calculator/npv';
 
 //set up the visualisation drawer
 const valueVisualisation = valueComparison()
-  .addContext({name:'exxon', value:1000000})
-  .addContext({name:'apple', value:1000000000})
+  .addContext({name:'apple', value:600000000000})
+  .addContext({name:'exxon', value:300000000000})
   .addValue({name:'aramco', value:0});
   
-const valueVisContainer = d3.select('.value-visualisation');
+const valueVisContainer = d3.select('.value-visualisation svg');
 
 //create the calculator
 const myCalc = calculator();
+var oilPriceBox = document.getElementById('selected-oil-price');
 
 d3.selectAll('.scenario-button')
   .on('click',function(){
-    console.log('clicked', this.dataset);
     myCalc.state(this.dataset);
   });
 
@@ -45,11 +47,19 @@ myCalc.dispatch()
     console.log('changed');
     valueVisualisation.addValue({
       name:'aramco',
-      value:event.marketValue,
+      value: event.marketCap,
     });
     valueVisContainer
       .call(valueVisualisation);
   });
+
+//Add eventlistener to on the oil price slider 
+d3.selectAll('#oil-price-slider')
+  .on('mousemove', function(){
+      oilPriceBox.textContent = this.value;
+      myCalc.state({oilPrice: parseInt(this.value)});
+  });  
+
 
 //draw the visualisation
 valueVisContainer
