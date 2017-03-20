@@ -32,7 +32,9 @@ function calculator(){
 
 			//tax amount
 			//NB removed conditional if 0 + PLUS depreciation and amort
-			currentYear.taxAmount = currentYear.taxRate * (currentYear.preTax + currentYear.depAmort) ;
+			let taxRate = state.taxRate ? state.taxRate : 0.5;
+			console.log("tax rate set here " + taxRate);
+			currentYear.taxAmount = taxRate * (currentYear.preTax + currentYear.depAmort);
 
 			//net profit
 			currentYear.netProfit = currentYear.preTax - currentYear.taxAmount;
@@ -46,15 +48,12 @@ function calculator(){
 			//free cash flow
 			currentYear.freeCashFlow = currentYear.opCashFlow - currentYear.capEx;
 
-			console.log(currentYear.year + " sales - " + currentYear.sales + " oilprice - " + oilPrice);
 		}
 
 		//terminal value of free cash flow 
 		let freeCashFlowTerminalValue = state.years[(state.years.length - 1)].freeCashFlow / (state.costOfEquity - state.terminalGrowthRate );
 
 		//10 year Treasury yield
-		//use NPV calculator because calculating npv is driving me crazy 
-		// guess this could work instead: https://gist.github.com/ghalimi/4597900
 		let accumulatedCashFlow = [];
 
 		for(let i in state.years){
@@ -66,7 +65,6 @@ function calculator(){
 			(accumulatedCashFlow[accumulatedCashFlow.length -1] + freeCashFlowTerminalValue));
 
 		let treasuryYield = npv(state.costOfEquity, accumulatedCashFlow) / 1000;
-		console.log("treasury yield " + treasuryYield);
 
 		let treasuryYieldBillion = treasuryYield * 1000000000;
 
@@ -82,7 +80,6 @@ function calculator(){
 
 	calculate.state = function(o) {
 		Object.assign(state, o);
-		console.log(state);
 		calculate();
 	}
 

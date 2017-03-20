@@ -35,6 +35,9 @@
         Storm clouds
     </button>
 </div>
+<div class="controls">
+    
+</div>
 <div>
     <p>Set Oil Price per barrel at $<span id="selected-oil-price">52</span> - for all years </p>
     <input 
@@ -46,13 +49,14 @@
     </input>
 </div>
 <div>
-    <p>Set Tax Rate at <span id="selected-tax-rate">52</span>% - for all years </p>
+    <p>Set Tax Rate at <span id="selected-tax-rate">50</span>% - for all years </p>
     <input 
         type="range" 
         id="tax-rate-slider"
-        min=20
-        max=100
-        value=52>
+        min=0.05
+        max=0.8
+        value=0.5
+        step=0.05>
     </input>
 </div>
 {% endmarkdown %}

@@ -89,7 +89,6 @@
     "test": "npm run lint && npm run build"
   },
   "dependencies": {
-    "d3": "^4.7.1",
-    "irr-npv": "^1.0.1"
+    "d3": "^4.7.1"
   }
 }

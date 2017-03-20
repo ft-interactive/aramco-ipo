@@ -14,3 +14,27 @@
                 - index.js
                 - template.html
 */
+
+.movable-chart {
+	// outline: 1px solid red;
+
+	> svg {
+		// outline: 1px solid blue;
+		display: block;
+	}
+
+	&__dot {
+		fill: white;
+		stroke: blue;
+		stroke-width: 2;
+	}
+
+	&__connecting-line {
+		stroke: pink;
+		stroke-width: 3;
+	}
+
+	&__mouse-catcher {
+		// outline: 1px solid green;
+	}
+}

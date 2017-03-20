@@ -8,11 +8,11 @@ function valueComparison(){
     function draw(parent){
         let values = [ valueToCompare, ...context ]
 
-        let h = 200;
+        let h = 220;
         let w = (window.screen.width < 500) ? (window.screen.width - 15) : 500
         let maxPossibleValue = config.maxPossibleMarketCap
         let maxPossibleDataset = [{"value": maxPossibleValue}];
-        let rightPadding = 5;
+        let padding = 5;
 
         var t = d3.transition()
                 .duration(1000);
@@ -36,9 +36,9 @@ function valueComparison(){
                     return acc + (rScale(d.value) * 2.5); 
                 }, 0);
                 if(previousWidths < w/6 ){
-                    return (w/6 * i) + (rightPadding * i) + rScale(d.value);
+                    return (w/6 * i) + (padding * i) + rScale(d.value);
                 } 
-                return previousWidths + (rightPadding * i) + rScale(d.value); 
+                return previousWidths + (padding * i) + rScale(d.value); 
             }
         }
 
@@ -46,7 +46,7 @@ function valueComparison(){
             return h/2;
         }
         var yNamePositioning = function(){
-            return h;
+            return h - padding;
         }
         
         parent.attr("viewbox", "0 0 " + w + " " + h)
@@ -74,8 +74,7 @@ function valueComparison(){
 
         //style main company differently 
         parent.selectAll(".main")
-            .style("fill", "rgb(215, 112, 108)");
-            
+            .style("fill", "rgb(215, 112, 108)");            
 
         //set max possible company value as dotted circle      
         parent.selectAll(".maxPotentialValue")
@@ -119,12 +118,20 @@ function valueComparison(){
             .attr("x", (d,i) => xPositioning(d,i)) 
             .attr("y", () => yNamePositioning());
 
+
         parent.selectAll(".nameLabel").transition(t)
             .text(d => { return d.name.toUpperCase()} )
             .attr("x", (d,i) => xPositioning(d,i)) 
             .attr("y", () => yNamePositioning())
-            .style("fill", "black")
-            .style("text-anchor", "middle"); 
+            .style("text-anchor", "middle")
+            .style("fill", "black");
+
+        //if circle engulfs label, make label white 
+        parent.selectAll('.nameLabel')
+            .classed("nameLabelWhite", d => (rScale(d.value) * 2) > (h - (padding*2)));
+
+        parent.selectAll('.nameLabelWhite').transition(t)
+            .style("fill", "white"); 
     }
 
     draw.addContext = function(x){
