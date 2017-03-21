@@ -1,0 +1,66 @@
+{
+    "longTermOilPrice":65,
+    "oilPriceAverage":52,
+    "opexPerBarrel":5,
+    "capexPerBarrel":5,
+    "rialExchangeRate":3.75,
+    "royalties": 0.15,
+    "sales2016":  172718000000,
+    "maxPossibleMarketCap": 1000000000000,
+    "depAmortPerBoe": 0.77,
+    "costOfEquity": 0.1,
+    "terminalGrowthRate": 0.02,
+    "refiningChems": 40000000000,
+    "years": [
+        {
+            "year": 2017,
+            "oilPrice": 52, 
+            "oilProduction": 10,
+            "depAmtRatio": 25,
+            "taxRate": 0.5
+        },
+        {
+            "year": 2018, 
+            "oilPrice": 52, 
+            "oilProduction": 10,
+            "depAmtRatio": 25,
+            "taxRate": 0.5
+        },
+        {
+            "year": 2019, 
+            "oilPrice": 52, 
+            "oilProduction": 10,
+            "depAmtRatio": 25,
+            "taxRate": 0.5
+        },
+        {
+            "year": 2020, 
+            "oilPrice": 52, 
+            "oilProduction": 10,
+            "depAmtRatio": 25,
+            "taxRate": 0.5
+        },
+        {
+            "year": 2021, 
+            "oilPrice": 52, 
+            "oilProduction": 10,
+            "depAmtRatio": 20,
+            "taxRate": 0.5
+        },
+        {
+            "year": 2022, 
+            "oilPrice": 52, 
+            "oilProduction": 10,
+            "depAmtRatio": 20,
+            "taxRate": 0.5
+            
+        },
+        {
+            "year": 2023, 
+            "oilPrice": 52, 
+            "oilProduction": 10,
+            "depAmtRatio": 15,
+            "taxRate": 0.5
+        }
+    ]
+}
