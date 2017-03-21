@@ -9,15 +9,14 @@ function valueComparison(){
         let values = [ valueToCompare, ...context ]
 
         let h = 220;
-        let w = (window.screen.width < 500) ? (window.screen.width - 15) : 500
+        let w = (window.screen.width < 500) ? (window.screen.width - 15) : 500;
+        // let w2 = (parent.getBoundingClientRect().width < 500) ? parent.getBoundingClientRect().width : 500;
         let maxPossibleValue = config.maxPossibleMarketCap
         let maxPossibleDataset = [{"value": maxPossibleValue}];
         let padding = 5;
 
         var t = d3.transition()
                 .duration(1000);
-
-        // var te = d3.easeElastic.period(0.4);
 
         //ensure that market cap value sets the *area* of the circle
         var rScale = d3.scalePow().exponent(0.5)
@@ -74,7 +73,7 @@ function valueComparison(){
 
         //style main company differently 
         parent.selectAll(".main")
-            .style("fill", "rgb(215, 112, 108)");            
+            .style("fill", "rgb(215, 112, 108)");
 
         //set max possible company value as dotted circle      
         parent.selectAll(".maxPotentialValue")

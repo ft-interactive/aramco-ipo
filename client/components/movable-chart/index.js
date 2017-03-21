@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 import EventEmitter from 'events';
 
-const margin = { top: 30, bottom: 30, left: 30, right: 10 };
+const margin = { top: 30, bottom: 30, left: 25, right: 10 };
 
 export default class MovableChart extends EventEmitter {
 	constructor({ years, width, height, min, max }) {
@@ -10,34 +10,35 @@ export default class MovableChart extends EventEmitter {
 		this.el = document.createElement('div');
 		this.el.classList.add('movable-chart');
 		this.el.style.position = 'relative';
-		this.years = years;
 		this.width = width;
 		this.height = height;
+		this.svg = d3.select(this.el)
+						.append("svg")
+						.attr('width', width)
+						.attr('height', height); 
 		this.min = min;
 		this.max = max;
 	}
 
-	render() {
-		const { el, years, width, height, min, max } = this;
+	setYears(years){
+		this.years = years;
+		this.init();
+	}
+
+	init(){
+		const { years, el, width, height, svg, min, max } = this;
 
 		const chartWidth = width - (margin.left + margin.right);
 		const chartHeight = height - (margin.top + margin.bottom);
-
 		const sliderWidth = chartWidth / years.length;
-
 		const yScale = d3.scaleLinear()
 						.domain([min, max])
 						.range([chartHeight, 0]);
 
 		const xScale = index => (sliderWidth * index) + (sliderWidth / 2);
+		const priceAxis = d3.axisLeft(yScale);
 
 		el.innerHTML = '';
-
-		const svg = d3.select(el)
-						.append("svg");
-
-		svg.attr('width', width)
-		   .attr('height', height);
 
 		const chartGroup = svg.append('g')
 			.attr('transform', `translate(${margin.left},${margin.top})`);
@@ -65,6 +66,7 @@ export default class MovableChart extends EventEmitter {
 			.attr('d', pathDescriptor);
 
 		years.forEach(({ label, value }, i) => {
+			console.log(value);
 			chartGroup.append('circle')
 				.attr('class', 'movable-chart__dot')
 				.attr('r', '10')
@@ -75,15 +77,10 @@ export default class MovableChart extends EventEmitter {
 
 		el.appendChild(svg.node());
 
-
 		// add y axis 
-		const priceAxis = d3.axisLeft(yScale);
-		
 		chartGroup.append("g")
 				.attr("class", "axis")
-				// .attr("transform", `translate(${margin.left}, 0)`)
 				.call(priceAxis);
-
 
 		// add mouse catchers
 		years.forEach(({ label, value }, i) => {
@@ -95,34 +92,33 @@ export default class MovableChart extends EventEmitter {
 			mouseCatcher.style.height = `${chartHeight}px`;
 			mouseCatcher.style.width = `${sliderWidth}px`;
 
-			const update = (offsetY) => {
-				years[i].value = yScale.invert(offsetY);
-				this.emit('update', { yearIndex: i, value });
-				this.render();
-			}
-
 			mouseCatcher.addEventListener('mousemove', (event) => {
 				if (event.which !== 1) return;
 				event.preventDefault();
-				update(event.offsetY);
+				this.emit('update', { year: years[i].label, value: yScale.invert(event.offsetY) });
 			});
 
 			mouseCatcher.addEventListener('mousedown', (event) => {
 				event.preventDefault();
-				update(event.offsetY);
+
+				this.emit('update', { year: years[i].label, value: yScale.invert(event.offsetY) });
 			});
 
-			// mouseCatcher.addEventListener('touchmove', (event) => {
-			// 	event.preventDefault();
-			// 	update(event.touches[0].clientY - mouseCatcher.getBoundingClientRect().top);
-			// });
+			mouseCatcher.addEventListener('mouseup', (event) => {
+				event.preventDefault();
+				this.emit('update', { year: years[i].label, value: yScale.invert(event.offsetY) });
+			});
 
-			// mouseCatcher.addEventListener('touchstart', (event) => {
-			// 	event.preventDefault();
-			// 	update(event.touches[0].clientY - mouseCatcher.getBoundingClientRect().top);
-			// });
+			mouseCatcher.addEventListener('click', (event) => {
+				event.preventDefault();
+				console.log(years[i].label);
+				console.log(yScale.invert(event.offsetY));
+				console.log("the click worked");
+				this.emit('update', { year: years[i].label, value: yScale.invert(event.offsetY) });
+			})
 
 			el.appendChild(mouseCatcher);
-		});
+		})		
+
 	}
 }
