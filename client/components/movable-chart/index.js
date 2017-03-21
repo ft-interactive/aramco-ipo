@@ -25,17 +25,19 @@ export default class MovableChart extends EventEmitter {
 
 		const sliderWidth = chartWidth / years.length;
 
-		const yScale = d3.scaleLinear().domain([min, max]).range([0, chartHeight]);
+		const yScale = d3.scaleLinear()
+						.domain([min, max])
+						.range([chartHeight, 0]);
+
 		const xScale = index => (sliderWidth * index) + (sliderWidth / 2);
 
 		el.innerHTML = '';
 
-		const svg = d3.select(document.createElementNS('http://www.w3.org/2000/svg', 'svg'));
+		const svg = d3.select(el)
+						.append("svg");
 
-		svg
-			.attr('width', width)
-			.attr('height', height)
-		;
+		svg.attr('width', width)
+		   .attr('height', height);
 
 		const chartGroup = svg.append('g')
 			.attr('transform', `translate(${margin.left},${margin.top})`);
@@ -45,25 +47,43 @@ export default class MovableChart extends EventEmitter {
 			.attr('width', chartWidth)
 			.attr('height', chartHeight);
 
+		chartGroup.selectAll('text')
+			.data(years)
+			.enter()
+			.append('text')
+			.text( d => d.label)
+			.attr("x", (d,i) => xScale(i))
+			.attr("y", -10)
+			.attr("text-anchor", "middle");
+
 		// make an svg path descriptor drawing a line between all the points
-		const pathDescriptor = `M ${years.map(({ label, value }, i) => `${xScale(i)} ${chartHeight - yScale(value)}`).join(' L ')}`;
+		const pathDescriptor = `M ${years.map(({ label, value }, i) => `${xScale(i)} ${yScale(value)}`).join(' L ')}`;
 
 		chartGroup.append('path')
 			.attr('class', 'movable-chart__connecting-line')
 			.attr('fill', 'none')
-			.attr('d', pathDescriptor)
-		;
+			.attr('d', pathDescriptor);
 
 		years.forEach(({ label, value }, i) => {
 			chartGroup.append('circle')
 				.attr('class', 'movable-chart__dot')
 				.attr('r', '10')
 				.attr('cx', xScale(i))
-				.attr('cy', chartHeight - yScale(value))
+				.attr('cy', yScale(value))
 			;
 		});
 
 		el.appendChild(svg.node());
+
+
+		// add y axis 
+		const priceAxis = d3.axisLeft(yScale);
+		
+		chartGroup.append("g")
+				.attr("class", "axis")
+				// .attr("transform", `translate(${margin.left}, 0)`)
+				.call(priceAxis);
+
 
 		// add mouse catchers
 		years.forEach(({ label, value }, i) => {
@@ -76,7 +96,7 @@ export default class MovableChart extends EventEmitter {
 			mouseCatcher.style.width = `${sliderWidth}px`;
 
 			const update = (offsetY) => {
-				years[i].value = yScale.invert(chartHeight - offsetY);
+				years[i].value = yScale.invert(offsetY);
 				this.emit('update', { yearIndex: i, value });
 				this.render();
 			}

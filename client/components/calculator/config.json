@@ -13,52 +13,52 @@
     "refiningChems": 40000000000,
     "years": [
         {
-            "year": 2017, 
+            "year": 2017,
+            "oilPrice": 52, 
             "oilProduction": 10,
-            "ebitdaMargins": 0.2,
             "depAmtRatio": 25,
             "taxRate": 0.5
         },
         {
             "year": 2018, 
+            "oilPrice": 52, 
             "oilProduction": 10,
-            "ebitdaMargins": 0.2,
             "depAmtRatio": 25,
             "taxRate": 0.5
         },
         {
             "year": 2019, 
+            "oilPrice": 52, 
             "oilProduction": 10,
-            "ebitdaMargins": 0.2,
             "depAmtRatio": 25,
             "taxRate": 0.5
         },
         {
             "year": 2020, 
+            "oilPrice": 52, 
             "oilProduction": 10,
-            "ebitdaMargins": 0.22,
             "depAmtRatio": 25,
             "taxRate": 0.5
         },
         {
             "year": 2021, 
+            "oilPrice": 52, 
             "oilProduction": 10,
-            "ebitdaMargins": 0.25,
             "depAmtRatio": 20,
             "taxRate": 0.5
         },
         {
             "year": 2022, 
+            "oilPrice": 52, 
             "oilProduction": 10,
-            "ebitdaMargins": 0.25,
             "depAmtRatio": 20,
             "taxRate": 0.5
             
         },
         {
             "year": 2023, 
+            "oilPrice": 52, 
             "oilProduction": 10,
-            "ebitdaMargins": 0.35,
             "depAmtRatio": 15,
             "taxRate": 0.5
         }

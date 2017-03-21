@@ -9,11 +9,14 @@ function calculator(){
 
 	function calculate(){
 
+
 		for(let i in state.years){
 			let currentYear = state.years[i];
 
-			//oil price 
-			let oilPrice = state.oilPrice ? parseInt(state.oilPrice) : 52;
+			console.log("in the calculator current year oil price " + currentYear.oilPrice);
+
+			//dynamically set oil price 
+			let oilPrice = currentYear.oilPrice;
 
 			//sales
 			currentYear.sales = 365 * oilPrice * currentYear.oilProduction;
@@ -33,7 +36,6 @@ function calculator(){
 			//tax amount
 			//NB removed conditional if 0 + PLUS depreciation and amort
 			let taxRate = state.taxRate ? state.taxRate : 0.5;
-			console.log("tax rate set here " + taxRate);
 			currentYear.taxAmount = taxRate * (currentYear.preTax + currentYear.depAmort);
 
 			//net profit
@@ -79,7 +81,13 @@ function calculator(){
 	}
 
 	calculate.state = function(o) {
-		Object.assign(state, o);
+		for(let i in state.years){
+			if(state.years[i].year == o.year){ 
+				console.log("year oil price " + o.oilPrice);
+				state.years[i].oilPrice = o.oilPrice; 
+			}
+		}
+	
 		calculate();
 	}
 
