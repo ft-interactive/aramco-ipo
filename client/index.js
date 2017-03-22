@@ -63,8 +63,6 @@ var compressDataForView = function(data){
   return shortenedData.slice(0,( numberYearsConfigurable +1) );
 }
 
-var uncompressDataForModel = function(){};
-
 //Generate list of years that can be configured
 var generateYearList = function(){
   let yearlist = [];
@@ -80,6 +78,7 @@ var generateYearList = function(){
 
 //Create and render moveable chart for oil prices
 const oilPriceChart = new MovableChart({
+    name: 'oilPrice',
     width: componentWidth,
     height: 200,
     min: 20,
@@ -101,6 +100,7 @@ controlsOil.appendChild(oilPriceChart.elements.container);
 
 //Create and render moveable chart for tax rate
 const taxRateChart = new MovableChart({
+    name: 'taxRate',
     width: componentWidth,
     height: 200,
     min: 20,
