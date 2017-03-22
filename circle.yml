@@ -17,8 +17,8 @@ dependencies:
 test:
   override:
     - yarn test
-  post:
-    - yarn run preflight
+  # post:
+  #   - yarn run preflight
 
 deployment:
   s3: # this is just a custom name, could be anything
