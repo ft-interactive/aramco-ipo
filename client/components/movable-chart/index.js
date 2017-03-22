@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 import EventEmitter from 'events';
 
-const margin = { top: 30, bottom: 30, left: 25, right: 10 };
+const margin = { top: 30, bottom: 30, left: 30, right: 10 };
 
 export default class MovableChart extends EventEmitter {
 	constructor({ width, height, min, max }) {
@@ -56,6 +56,11 @@ export default class MovableChart extends EventEmitter {
 		this.yScale = yScale;
 		const priceAxis = d3.axisLeft(yScale);
 
+		priceAxis.tickSize(-chartWidth);
+		priceAxis.ticks(5);
+		// priceAxis.selectAll('text')
+		// 	.attr('y', 5)
+
 		elements.container.innerHTML = '';
 
 		elements.svg = d3.select(elements.container)
@@ -67,10 +72,10 @@ export default class MovableChart extends EventEmitter {
 		elements.chartGroup = elements.svg.append('g')
 			.attr('transform', `translate(${margin.left},${margin.top})`);
 
-		elements.chartGroup.append('rect')
-			.attr('fill', 'white')
-			.attr('width', chartWidth)
-			.attr('height', chartHeight);
+		// elements.chartGroup.append('rect')
+		// 	.attr('fill', 'white')
+		// 	.attr('width', chartWidth)
+		// 	.attr('height', chartHeight);
 
 		elements.chartGroup.selectAll('text')
 			.data(years)
@@ -80,6 +85,15 @@ export default class MovableChart extends EventEmitter {
 			.attr("x", (d, i) => xScale(i))
 			.attr("y", -10)
 			.attr("text-anchor", "middle");
+
+		// add y axis 
+		elements.chartGroup.append("g")
+				.attr("class", "axis")
+				.call(priceAxis)
+				.selectAll('text')
+				.attr('y', -5)
+;
+
 
 		elements.connectingLine = elements.chartGroup.append('path')
 			.attr('class', 'movable-chart__connecting-line')
@@ -92,10 +106,6 @@ export default class MovableChart extends EventEmitter {
 				.attr('r', '10');
 		});
 
-		// add y axis 
-		elements.chartGroup.append("g")
-				.attr("class", "axis")
-				.call(priceAxis);
 
 		// add mouse catchers
 		years.forEach(({ label, value }, i) => {

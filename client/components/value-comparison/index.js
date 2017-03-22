@@ -9,7 +9,8 @@ function valueComparison(){
         let values = [ valueToCompare, ...context ]
 
         let h = 220;
-        let w = (window.screen.width < 500) ? (window.screen.width - 15) : 500;
+        let containerWidth = document.querySelector('.value-visualisation').getBoundingClientRect().width;
+        let w = (containerWidth < 660) ? (containerWidth - 15) : 660;
         let maxPossibleValue = config.maxPossibleMarketCap
         let maxPossibleDataset = [{"value": maxPossibleValue}];
         let padding = 5;

@@ -11,11 +11,10 @@ export default () => ({ // eslint-disable-line
   //       new Date('2016-05-17T17:11:22Z')
   publishedDate: new Date(),
 
-  headline: 'Politics and the English Language',
+  headline: 'IPO calculator: how much will Saudi Aramco be worth?',
 
   // summary === standfirst (Summary is what the content API calls it)
-  summary: 'Political language is designed to make lies sound truthful' +
-           'and murder respectable, and to give an appearance of solidity to pure wind',
+  summary: 'Saudi Aramco is set to become the world’s largest company, how big is up to you. Choose a scenario or fine tune various measures such as oil price and tax rates to determine just how large Saudi Aramco is likely to be when it launches its IPO.',
 
   topic: {
     name: 'Starter Kit',
