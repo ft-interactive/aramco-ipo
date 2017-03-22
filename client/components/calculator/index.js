@@ -7,7 +7,7 @@ function calculator(){
 	const state = config;
 	const dispatch = d3.dispatch('change');
 
-	function calculate(){
+	const calculate = function (){
 
 		for(let i in state.years){
 			let currentYear = state.years[i];
@@ -79,7 +79,7 @@ function calculator(){
 		dispatch.call('change', { marketCap: marketCap, years: state.years });
 	}
 
-	calculate.state = function(o) {
+	const updateState = function(o) {
 		for(let i in state.years){
 
 			if(o.oilPrice){
@@ -115,11 +115,11 @@ function calculator(){
 		calculate();
 	}
 
-	calculate.dispatch = function(){
-		return dispatch;
-	}
-
-	return calculate;
+	return {
+		calculate,
+		updateState,
+		getDispatcher: () => dispatch,
+	};
 };
 
 module.exports = calculator;

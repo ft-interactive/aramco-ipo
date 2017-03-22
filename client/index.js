@@ -26,7 +26,7 @@ const myCalc = calculator();
 //Set up listener on the scenario buttons 
 d3.selectAll('.scenario-button')
   .on('click',function(){
-    myCalc.state(this.dataset);
+    myCalc.updateState(this.dataset);
   });
 
 //Oil price chart set config
@@ -48,14 +48,14 @@ const oilPriceChart = new MovableChart({
     max: 100,
   });
 
-oilPriceChart.setYears(oilPriceByYear(config.years));
-controlsOil.appendChild(oilPriceChart.el); 
+oilPriceChart.setYears(oilPriceByYear(config.years)).init();
+controlsOil.appendChild(oilPriceChart.elements.container); 
 
  //Add event dispatcher on data change in oil price chart
  oilPriceChart.on('update', (payload) => {
-
     let yearlist = generateYearList();
-    myCalc.state({
+    
+    myCalc.updateState({
       year: payload.year,
       oilPrice: payload.value
     });
@@ -68,30 +68,32 @@ const taxRateChart = new MovableChart({
     min: 20,
     max: 100,
   });
-taxRateChart.setYears(oilPriceByYear(config.years));
-controlsTax.appendChild(taxRateChart.el);
+taxRateChart.setYears(oilPriceByYear(config.years)).init();
+controlsTax.appendChild(taxRateChart.elements.container);
 
  //Add event dispatcher on data change in tax rate chart
  taxRateChart.on('update', (payload) => {
     let yearlist = generateYearList();
-    myCalc.state({
+    myCalc.updateState({
       year: payload.year,
       taxRate: parseFloat(payload.value / 100)
     });
   })
 
 //Set up a listener on the calculator so when it updates we can update the page
-myCalc.dispatch()
+myCalc.getDispatcher()
   .on('change', function(){
     const event = this;
 
     valueVisualisation.addValue({
-      name:'aramco',
+    name:'aramco',
       value: event.marketCap,
     });
     valueVisContainer
       .call(valueVisualisation);
-    oilPriceChart.setYears(oilPriceByYear(event.years));
+
+    oilPriceChart.setYears(oilPriceByYear(event.years)).update();
+    taxRateChart.setYears(event.years).update();
   });
 
 
@@ -113,4 +115,4 @@ valueVisContainer
   .call(valueVisualisation);
 
 //run the initial calculation
-myCalc();
+myCalc.calculate();
