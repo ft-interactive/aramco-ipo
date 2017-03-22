@@ -1,6 +1,6 @@
 {% set test_comments_uuid = "3a499586-b2e0-11e4-a058-00144feab7de" if not flags.prod and flags.comments else "" %}
 <!doctype html>
-<html lang="en-GB" class="core"
+<html lang="en-GB" class="core o-hoverable-on"
     data-buildtime="{{ now() | isotime }}"
     data-content-id="{{ id if id else test_comments_uuid }}">
   <head>
@@ -65,6 +65,7 @@
     queue([
       'index.js',
       'https://origami-build.ft.com/v2/bundles/js?export=oDate&modules=o-date@^2.6.0',
+      'https://origami-build.ft.com/v2/bundles/js?export=oHoverable&modules=o-hoverable@^3.1.0',
       {% if scripts %}{% for script in scripts %}
       ,'{{ script | safe }}'
       {% endfor %}{% endif %}
