@@ -12,7 +12,8 @@ const valueVisualisation = valueComparison()
   .addContext({name:'apple', value:600000000000})
   .addContext({name:'exxon', value:300000000000});
   
-const componentWidth = (window.screen.width < 500) ? (window.screen.width - 15) : 500; 
+let chartContainerWidth = document.querySelector('.controls-oil').getBoundingClientRect().width; 
+const componentWidth = (chartContainerWidth < 660) ? (chartContainerWidth - 15) : 660; 
 const numberYearsConfigurable = 3;
 
 //DOM elements

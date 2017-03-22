@@ -15,6 +15,14 @@
                 - template.html
 */
 
+.o-typography-body-wrapper h2 {
+  margin-bottom: 4px;
+}
+
+.o-typography-lead--small {
+  margin-bottom: 12px;
+}
+
 .value-visualisation {
 	// marketcap circles
 	&__marketcap{
@@ -34,7 +42,7 @@
 		text-anchor: middle;
 	}
 	&__nameLabel{
-		style: "text-anchor: middle";
+    text-transform: capitalize;
 	}
 	&__nameLabelWhite{
 		fill: white;
@@ -47,20 +55,42 @@
 	> svg {
 		// outline: 1px solid blue;
 		display: block;
+
+    & text {
+      font-feature-settings:'tnum' 1;
+    }
 	}
+  
+  .axis line {
+    fill: none;
+    stroke: #e9decf;
+    stroke-dasharray:2,1;
+    shape-rendering: crispEdges;
+  }
+
+  .axis text {
+    fill: #74736c;
+    font-size: 16px;
+    font-family: MetricWeb, sans-serif;
+  }
+
+  .axis .domain {
+    stroke-width: 0;
+  }
 
 	&__dot {
 		fill: white;
-		stroke: blue;
+		stroke: #26747a;
 		stroke-width: 2;
 	}
 
 	&__connecting-line {
-		stroke: pink;
+		stroke: #26747a;
 		stroke-width: 3;
 	}
 
 	&__mouse-catcher {
 		// outline: 1px solid green;
 	}
+
 }
