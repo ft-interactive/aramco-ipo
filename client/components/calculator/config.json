@@ -1,6 +1,4 @@
 {
-    "longTermOilPrice":65,
-    "oilPriceAverage":52,
     "opexPerBarrel":5,
     "capexPerBarrel":5,
     "rialExchangeRate":3.75,
@@ -53,7 +51,159 @@
             "oilProduction": 10,
             "depAmtRatio": 20,
             "taxRate": 0.5
-            
+        },
+        {
+            "year": 2023, 
+            "oilPrice": 52, 
+            "oilProduction": 10,
+            "depAmtRatio": 15,
+            "taxRate": 0.5
+        }
+    ],
+    "years_pessimistic": [
+        {
+            "year": 2017,
+            "oilPrice": 42, 
+            "oilProduction": 10,
+            "depAmtRatio": 25,
+            "taxRate": 0.7
+        },
+        {
+            "year": 2018, 
+            "oilPrice": 42, 
+            "oilProduction": 10,
+            "depAmtRatio": 25,
+            "taxRate": 0.7
+        },
+        {
+            "year": 2019, 
+            "oilPrice": 42, 
+            "oilProduction": 10,
+            "depAmtRatio": 25,
+            "taxRate": 0.7
+        },
+        {
+            "year": 2020, 
+            "oilPrice": 42, 
+            "oilProduction": 10,
+            "depAmtRatio": 25,
+            "taxRate": 0.7
+        },
+        {
+            "year": 2021, 
+            "oilPrice": 42, 
+            "oilProduction": 10,
+            "depAmtRatio": 20,
+            "taxRate": 0.7
+        },
+        {
+            "year": 2022, 
+            "oilPrice": 42, 
+            "oilProduction": 10,
+            "depAmtRatio": 20,
+            "taxRate": 0.7
+        },
+        {
+            "year": 2023, 
+            "oilPrice": 42, 
+            "oilProduction": 10,
+            "depAmtRatio": 15,
+            "taxRate": 0.7
+        }
+    ],
+      "years_optimistic": [
+        {
+            "year": 2017,
+            "oilPrice": 55, 
+            "oilProduction": 10,
+            "depAmtRatio": 25,
+            "taxRate": 0.4
+        },
+        {
+            "year": 2018, 
+            "oilPrice": 65, 
+            "oilProduction": 10,
+            "depAmtRatio": 25,
+            "taxRate": 0.4
+        },
+        {
+            "year": 2019, 
+            "oilPrice": 70, 
+            "oilProduction": 10,
+            "depAmtRatio": 25,
+            "taxRate": 0.4
+        },
+        {
+            "year": 2020, 
+            "oilPrice": 65, 
+            "oilProduction": 10,
+            "depAmtRatio": 25,
+            "taxRate": 0.4
+        },
+        {
+            "year": 2021, 
+            "oilPrice": 70, 
+            "oilProduction": 10,
+            "depAmtRatio": 20,
+            "taxRate": 0.4
+        },
+        {
+            "year": 2022, 
+            "oilPrice": 70, 
+            "oilProduction": 10,
+            "depAmtRatio": 20,
+            "taxRate": 0.4
+        },
+        {
+            "year": 2023, 
+            "oilPrice":70, 
+            "oilProduction": 10,
+            "depAmtRatio": 15,
+            "taxRate": 0.4
+        }
+    ],
+      "years_neutral": [
+        {
+            "year": 2017,
+            "oilPrice": 52, 
+            "oilProduction": 10,
+            "depAmtRatio": 25,
+            "taxRate": 0.5
+        },
+        {
+            "year": 2018, 
+            "oilPrice": 52, 
+            "oilProduction": 10,
+            "depAmtRatio": 25,
+            "taxRate": 0.5
+        },
+        {
+            "year": 2019, 
+            "oilPrice": 52, 
+            "oilProduction": 10,
+            "depAmtRatio": 25,
+            "taxRate": 0.5
+        },
+        {
+            "year": 2020, 
+            "oilPrice": 52, 
+            "oilProduction": 10,
+            "depAmtRatio": 25,
+            "taxRate": 0.5
+        },
+        {
+            "year": 2021, 
+            "oilPrice": 52, 
+            "oilProduction": 10,
+            "depAmtRatio": 20,
+            "taxRate": 0.5
+        },
+        {
+            "year": 2022, 
+            "oilPrice": 52, 
+            "oilProduction": 10,
+            "depAmtRatio": 20,
+            "taxRate": 0.5
         },
         {
             "year": 2023, 

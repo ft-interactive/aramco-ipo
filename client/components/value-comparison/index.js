@@ -9,15 +9,13 @@ function valueComparison(){
         let values = [ valueToCompare, ...context ]
 
         let h = 220;
-        let w = (window.screen.width < 500) ? (window.screen.width - 15) : 500
+        let w = (window.screen.width < 500) ? (window.screen.width - 15) : 500;
         let maxPossibleValue = config.maxPossibleMarketCap
         let maxPossibleDataset = [{"value": maxPossibleValue}];
         let padding = 5;
 
         var t = d3.transition()
                 .duration(1000);
-
-        // var te = d3.easeElastic.period(0.4);
 
         //ensure that market cap value sets the *area* of the circle
         var rScale = d3.scalePow().exponent(0.5)
@@ -54,84 +52,70 @@ function valueComparison(){
                 .attr("width", w);
 
         //set company values as circles       
-        parent.selectAll(".potentialValue")
+        parent.selectAll("circle")
             .data(values, d => d.name )
             .enter()
             .append("circle")
-            .classed("potentialValue", true)
-            .classed("main", d => d.name === 'aramco')
+            .classed("value-visualisation__marketcap", true)
+            .classed("value-visualisation__main-marketcap", d => d.name === 'aramco')
             .attr("cx", (d,i) => xPositioning(d, i))
             .attr("cy", d => yPositioning())
-            .style("fill", "#26747a");
 
-        parent.selectAll(".potentialValue").transition(t)
+        parent.selectAll(".value-visualisation__marketcap").transition(t)
             .attr("r", d => rScale(d.value))
 
-
-        parent.selectAll(".potentialValue").transition(t)
+        parent.selectAll(".value-visualisation__marketcap").transition(t)
             .attr("cx", (d,i) => xPositioning(d, i))
             .attr("cy", d => yPositioning())
 
-        //style main company differently 
-        parent.selectAll(".main")
-            .style("fill", "rgb(215, 112, 108)");            
-
-        //set max possible company value as dotted circle      
-        parent.selectAll(".maxPotentialValue")
+        //set optimistic company valuation as dotted circle      
+        parent.selectAll(".value-visualisation__main-optimistic-marketcap")
             .data(maxPossibleDataset)
             .enter()
             .append("circle")
-            .classed("maxPotentialValue", true)
+            .classed("value-visualisation__main-optimistic-marketcap", true)
             .attr("cx", (d,i) => xPositioning(d, i))
             .attr("cy", d => yPositioning());
 
-        parent.selectAll(".maxPotentialValue")
+        parent.selectAll(".value-visualisation__main-optimistic-marketcap")
             .attr("cx", (d,i) => xPositioning(d, i))
             .attr("cy", d => yPositioning())
             .attr("r", d => rScale(d.value))
-            .style("fill", "none")
-            .style("stroke-dasharray", ("10,3"))
-            .style("stroke", "rgb(215, 112, 108)");
 
         //add value labels     
-        parent.selectAll(".amountLabel")
+        parent.selectAll(".value-visualisation__amountLabel")
             .data(values, d => d.name ) 
             .enter()
             .append("text")
-            .classed("amountLabel", true)
+            .classed("value-visualisation__amountLabel", true)
             .attr("x", (d,i) => xPositioning(d, i))
             .attr("y", () => yPositioning());
 
-        parent.selectAll(".amountLabel").transition(t)       
+        parent.selectAll(".value-visualisation__amountLabel").transition(t)       
             .text(d => "$" + (Math.round(d.value / 1000000000)) + "bn")
             .attr("x", (d,i) => xPositioning(d, i))
             .attr("y", () => yPositioning())
-            .style("fill", "white")
-            .style("text-anchor", "middle");
 
         //add name labels
-        parent.selectAll(".nameLabel")
+        parent.selectAll(".value-visualisation__nameLabel")
             .data(values, d => d.name )
             .enter()
             .append("text")
-            .classed("nameLabel", true)
+            .classed("value-visualisation__nameLabel", true)
             .attr("x", (d,i) => xPositioning(d,i)) 
             .attr("y", () => yNamePositioning());
 
 
-        parent.selectAll(".nameLabel").transition(t)
+        parent.selectAll(".value-visualisation__nameLabel").transition(t)
             .text(d => { return d.name.toUpperCase()} )
             .attr("x", (d,i) => xPositioning(d,i)) 
             .attr("y", () => yNamePositioning())
             .style("text-anchor", "middle")
-            .style("fill", "black");
 
         //if circle engulfs label, make label white 
-        parent.selectAll('.nameLabel')
-            .classed("nameLabelWhite", d => (rScale(d.value) * 2) > (h - (padding*2)));
+        parent.selectAll('.value-visualisation__nameLabel')
+            .classed("value-visualisation__nameLabelWhite", d => (rScale(d.value) * 2) > (h - (padding*2)));
 
-        parent.selectAll('.nameLabelWhite').transition(t)
-            .style("fill", "white"); 
     }
 
     draw.addContext = function(x){

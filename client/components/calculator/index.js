@@ -7,16 +7,14 @@ function calculator(){
 	const state = config;
 	const dispatch = d3.dispatch('change');
 
-	function calculate(){
-
+	const calculate = function (){
 
 		for(let i in state.years){
 			let currentYear = state.years[i];
 
-			console.log("in the calculator current year oil price " + currentYear.oilPrice);
-
 			//dynamically set oil price 
 			let oilPrice = currentYear.oilPrice;
+
 
 			//sales
 			currentYear.sales = 365 * oilPrice * currentYear.oilProduction;
@@ -35,8 +33,9 @@ function calculator(){
 
 			//tax amount
 			//NB removed conditional if 0 + PLUS depreciation and amort
-			let taxRate = state.taxRate ? state.taxRate : 0.5;
+			let taxRate = currentYear.taxRate;
 			currentYear.taxAmount = taxRate * (currentYear.preTax + currentYear.depAmort);
+			console.log(currentYear.year + " oilprice: " + currentYear.oilPrice + " tax rate: " + currentYear.taxRate);
 
 			//net profit
 			currentYear.netProfit = currentYear.preTax - currentYear.taxAmount;
@@ -51,6 +50,8 @@ function calculator(){
 			currentYear.freeCashFlow = currentYear.opCashFlow - currentYear.capEx;
 
 		}
+
+		console.log("------------------");
 
 		//terminal value of free cash flow 
 		let freeCashFlowTerminalValue = state.years[(state.years.length - 1)].freeCashFlow / (state.costOfEquity - state.terminalGrowthRate );
@@ -72,30 +73,54 @@ function calculator(){
 
 		//calculated market cap
 		let calculatedMarketCap = treasuryYieldBillion + state.refiningChems;
-		console.log("calculated market cap " + calculatedMarketCap);
 
 		//assign calculated marketcap to visualisation
-		let marketCap = state.marketcap ? parseInt(state.marketcap) : calculatedMarketCap;
+		let marketCap = calculatedMarketCap;
 
-		dispatch.call('change', { marketCap: marketCap });
+		dispatch.call('change', { marketCap: marketCap, years: state.years });
 	}
 
-	calculate.state = function(o) {
+	const updateState = function(o) {
 		for(let i in state.years){
-			if(state.years[i].year == o.year){ 
-				console.log("year oil price " + o.oilPrice);
-				state.years[i].oilPrice = o.oilPrice; 
+
+			if(o.oilPrice){
+				if(state.years[i].year === o.year){ 
+					state.years[i].oilPrice = o.oilPrice; 
+				}
+				else if(state.years[i].year > 2019 && o.year === 'onwards') {
+					state.years[i].oilPrice = o.oilPrice; 
+				}
 			}
+			else if(o.taxRate){
+				if(state.years[i].year === o.year){ 
+					state.years[i].taxRate = o.taxRate; 
+				}
+				else if(state.years[i].year > 2019 && o.year === 'onwards') {
+					state.years[i].taxRate = o.taxRate; 
+				}
+			}
+			else if(o.scenario){
+				if(o.scenario === 'optimistic'){
+					Object.assign(state.years, state.years_optimistic);
+				}
+				else if(o.scenario === 'pessimistic'){
+					Object.assign(state.years, state.years_pessimistic);
+				}
+				else{
+					Object.assign(state.years, state.years_neutral);
+				}
+			}
+
 		}
 	
 		calculate();
 	}
 
-	calculate.dispatch = function(){
-		return dispatch;
-	}
-
-	return calculate;
+	return {
+		calculate,
+		updateState,
+		getDispatcher: () => dispatch,
+	};
 };
 
 module.exports = calculator;

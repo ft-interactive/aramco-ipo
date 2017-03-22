@@ -15,6 +15,32 @@
                 - template.html
 */
 
+.value-visualisation {
+	// marketcap circles
+	&__marketcap{
+		fill: #26747a; 
+	}
+	&__main-marketcap{
+		fill: rgb(215, 112, 108); 
+	}
+	&__main-optimistic-marketcap{
+		fill: none;
+		stroke: rgb(215, 112, 108);
+		stroke-width: 2;
+		stroke-dasharray: 10; 
+	}
+	&__amountLabel{
+		fill: white;
+		text-anchor: middle;
+	}
+	&__nameLabel{
+		style: "text-anchor: middle";
+	}
+	&__nameLabelWhite{
+		fill: white;
+	}
+}
+
 .movable-chart {
 	// outline: 1px solid red;
 

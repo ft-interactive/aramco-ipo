@@ -1,27 +1,8 @@
-/*
-  TODO: delete this comment
 
-  This file is where you bootstrap your JS code
-  For example import stuff here:
-
-  import {select} from 'd3-selection';
-  import myComponent from './components/my-component';
-
-  Split logical parts of you project into components e.g.
-
-  /client
-    - /components
-        - /component-name
-            - styles.scss
-            - index.js
-            - template.html
-
-*/
 import * as d3 from 'd3';
 import config from './components/calculator/config';
 import calculator from './components/calculator/index';
 import valueComparison from './components/value-comparison/index';
-import userInput from './components/user-inputs/index';
 import NPV from './components/calculator/npv';
 import MovableChart from './components/movable-chart';
 
@@ -31,116 +12,131 @@ const valueVisualisation = valueComparison()
   .addContext({name:'apple', value:600000000000})
   .addContext({name:'exxon', value:300000000000});
   
+const componentWidth = (window.screen.width < 500) ? (window.screen.width - 15) : 500; 
+const numberYearsConfigurable = 3;
+
+//DOM elements
 const valueVisContainer = d3.select('.value-visualisation svg');
+const controlsOil = document.querySelector('.controls-oil');
+const controlsTax = document.querySelector('.controls-tax');
 
 //create the calculator
 const myCalc = calculator();
-var oilPriceBox = document.getElementById('selected-oil-price');
-var taxRateBox = document.getElementById('selected-tax-rate');
 
+//Set up listener on the scenario buttons 
 d3.selectAll('.scenario-button')
   .on('click',function(){
-    myCalc.state(this.dataset);
+    myCalc.updateState(this.dataset);
   });
 
-//Set up a listener on the calculator so that when it changed we can update the page
-myCalc.dispatch()
+//For moveable charts reconfigure properties so they can be read
+var reformatData = function(allYears, property){
+  let reformattedData = [];
+  for(let inputYear in allYears){
+    let x = { 
+      label: allYears[inputYear].year,
+    }
+    if(property === 'oilPrice'){ x.value = allYears[inputYear].oilPrice }
+    else if(property === 'taxRate'){ x.value = allYears[inputYear].taxRate * 100 }
+
+    reformattedData.push(x);          
+  }
+
+   return compressDataForView(reformattedData); 
+} 
+
+var compressDataForView = function(data){
+  let shortenedYearList = generateYearList();
+  let shortenedData = [];
+
+  shortenedYearList.map(( year, i) =>{
+      if(year == data[i].label){
+        shortenedData.push(data[i]);
+      }
+      else if(year === 'onwards'){
+        data[i].label = 'onwards';
+        shortenedData.push(data[i]);
+      }
+    }
+  );
+  return shortenedData.slice(0,( numberYearsConfigurable +1) );
+}
+
+var uncompressDataForModel = function(){};
+
+//Generate list of years that can be configured
+var generateYearList = function(){
+  let yearlist = [];
+  for(let i =0; i < config.years.length; i++){
+    if(i < numberYearsConfigurable){
+      yearlist.push(parseInt(config.years[i].year));
+    } else{
+      yearlist.push('onwards');
+    }
+  }
+  return yearlist;
+}
+
+//Create and render moveable chart for oil prices
+const oilPriceChart = new MovableChart({
+    width: componentWidth,
+    height: 200,
+    min: 20,
+    max: 100,
+  });
+
+oilPriceChart.setYears(reformatData(config.years, 'oilPrice')).init();
+controlsOil.appendChild(oilPriceChart.elements.container); 
+
+ //Add event dispatcher on data change in oil price chart
+ oilPriceChart.on('update', (payload) => {
+    let yearlist = generateYearList();
+    
+    myCalc.updateState({
+      year: payload.year,
+      oilPrice: payload.value
+    });
+  })
+
+//Create and render moveable chart for tax rate
+const taxRateChart = new MovableChart({
+    width: componentWidth,
+    height: 200,
+    min: 20,
+    max: 100,
+  });
+taxRateChart.setYears(reformatData(config.years, 'taxRate')).init();
+controlsTax.appendChild(taxRateChart.elements.container);
+
+ //Add event dispatcher on data change in tax rate chart
+ taxRateChart.on('update', (payload) => {
+    let yearlist = generateYearList();
+    myCalc.updateState({
+      year: payload.year,
+      taxRate: parseFloat(payload.value / 100)
+    });
+  })
+
+//Set up a listener on the calculator so when it updates we can update the page
+myCalc.getDispatcher()
   .on('change', function(){
     const event = this;
-    console.log('changed');
+
     valueVisualisation.addValue({
-      name:'aramco',
+    name:'aramco',
       value: event.marketCap,
     });
     valueVisContainer
       .call(valueVisualisation);
+
+    oilPriceChart.setYears(reformatData(event.years, 'oilPrice')).update();
+    taxRateChart.setYears(reformatData(event.years, 'taxRate')).update();
   });
 
-//Add eventlistener to on the oil price slider 
-// d3.selectAll('#oil-price-slider')
-//   .on('change', function(){
-//       console.log("slider event ran" + this.value);
-//       myCalc.state({
-//         year: '2017',
-//         oilPrice: parseInt(this.value)
-//       });
-//   });  
-
-//Create and render moveable chart for oil prices
-const oilPriceChart = new MovableChart({
-  width: 500,
-  height: 200,
-  years: [
-    { label: '2017', value: 52 },
-    { label: '2018', value: 52 },
-    { label: '2019', value: 52 },
-    { label: 'onwards', value: 55 },
-  ],
-  min: 20,
-  max: 100,
-});
-
-oilPriceChart.render();
-const controlsOil = document.querySelector('.controls-oil');
-const controlsTax = document.querySelector('.controls-tax');
-controlsOil.appendChild(oilPriceChart.el);
-
-
-//Create and render moveable chart for tax rate
-const taxRateChart = new MovableChart({
-  width: 500,
-  height: 200,
-  years:[
-    { label: '2017', value: 50 },
-    { label: '2018', value: 40 },
-    { label: '2019', value: 40 },
-    { label: 'onwards', value: 40 },
-  ],
-  min: 5,
-  max: 80,
-});
-
-taxRateChart.render();
-controlsTax.appendChild(taxRateChart.el);
-
-//Add event dispatcher on data from oil price chart
-oilPriceChart.on('update', (payload) => {
-  let yearlist = [];
-  config.years.map(function(year){
-    yearlist.push(year.year);
-  });
-
-  myCalc.state({
-    year: yearlist[payload.yearIndex],
-    oilPrice: payload.value
-  });
-})
-
-//Add event dispatcher on data from tax rate chart
-taxRateChart.on('update', (payload) => {
-  let yearlist = [];
-  config.years.map(function(year){
-    yearlist.push(year.year);
-  });
-
-  console.log("HEERRRREE " + payload.value);
-
-  myCalc.state({
-    year: yearlist[payload.yearIndex],
-    taxRate: parseFloat(payload.value / 100)
-  });
-})
-
-
-//Add eventlistenter to tax rate slider 
-d3.selectAll('#tax-rate-slider')
-  .on('change', function(){
-      myCalc.state({taxRate: parseFloat(this.value)});
-  })
 
 //draw the visualisation
 valueVisContainer
   .call(valueVisualisation);
 
 //run the initial calculation
-myCalc();
+myCalc.calculate();

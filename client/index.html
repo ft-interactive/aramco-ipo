@@ -14,24 +14,15 @@
 <div>
     <p>
     <button id="rise" class="o-buttons o-buttons--big scenario-button" 
-        data-oilprice="120" 
-        data-taxrate="0.5" 
-        data-production="11"
-        data-marketcap="1000000000000">
+        data-scenario="optimistic"> 
         Blue sky
     </button>
     <button id="same" class="o-buttons o-buttons--big scenario-button" 
-        data-oilprice="65"
-        data-taxrate="0.5" 
-        data-production="10"
-        data-marketcap="700000000000">
+        data-scenario="neutral">
         Grey sky
     </button>
     <button id="fall" class="o-buttons o-buttons--big scenario-button" 
-        data-oilprice="40"
-        data-taxrate="0.7" 
-        data-production="9"
-        data-marketcap="400000000000">
+        data-scenario="pessimistic">
         Storm clouds
     </button>
 </div>
@@ -40,14 +31,6 @@
 </div>
 <div class="controls-tax">
     <p>Set Tax Rate (%)</p>
-    <input 
-        type="range" 
-        id="tax-rate-slider"
-        min=0.05
-        max=0.8
-        value=0.5
-        step=0.05>
-    </input>
 </div>
 {% endmarkdown %}
 {% endblock %}
