@@ -8,7 +8,7 @@ function valueComparison(){
     function draw(parent){
         let values = [ valueToCompare, ...context ]
 
-        let h = 220;
+        let h = 250;
         let containerWidth = document.querySelector('.value-visualisation').getBoundingClientRect().width;
         let w = (containerWidth < 660) ? (containerWidth - 15) : 660;
         let maxPossibleValue = config.maxPossibleMarketCap

@@ -4,7 +4,7 @@
     "rialExchangeRate":3.75,
     "royalties": 0.15,
     "sales2016":  172718000000,
-    "maxPossibleMarketCap": 1000000000000,
+    "maxPossibleMarketCap": 985000000000,
     "depAmortPerBoe": 0.77,
     "costOfEquity": 0.1,
     "terminalGrowthRate": 0.02,
@@ -128,7 +128,7 @@
         },
         {
             "year": 2019, 
-            "oilPrice": 70, 
+            "oilPrice": 65, 
             "oilProduction": 10,
             "depAmtRatio": 25,
             "taxRate": 0.4
@@ -142,21 +142,21 @@
         },
         {
             "year": 2021, 
-            "oilPrice": 70, 
+            "oilPrice": 65, 
             "oilProduction": 10,
             "depAmtRatio": 20,
             "taxRate": 0.4
         },
         {
             "year": 2022, 
-            "oilPrice": 70, 
+            "oilPrice": 65, 
             "oilProduction": 10,
             "depAmtRatio": 20,
             "taxRate": 0.4
         },
         {
             "year": 2023, 
-            "oilPrice":70, 
+            "oilPrice":60, 
             "oilProduction": 10,
             "depAmtRatio": 15,
             "taxRate": 0.4

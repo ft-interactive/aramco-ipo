@@ -4,13 +4,14 @@ import EventEmitter from 'events';
 const margin = { top: 30, bottom: 30, left: 30, right: 10 };
 
 export default class MovableChart extends EventEmitter {
-	constructor({ width, height, min, max }) {
+	constructor({ name, width, height, min, max }) {
 		super();
 
 		const container = document.createElement('div');
 		container.classList.add('movable-chart');
 		container.style.position = 'relative';
 
+		this.name = name;
 		this.width = width;
 		this.height = height;
 
@@ -26,7 +27,7 @@ export default class MovableChart extends EventEmitter {
 	}
 
 	update() {
-		const { years, el, width, height, min, max, elements, xScale, yScale } = this;
+		const { name, years, el, width, height, min, max, elements, xScale, yScale } = this;
 
 		// make an svg path descriptor drawing a line between all the points
 		const pathDescriptor = `M ${years.map(({ label, value }, i) => `${xScale(i)} ${yScale(value)}`).join(' L ')}`;
@@ -36,8 +37,17 @@ export default class MovableChart extends EventEmitter {
 		years.forEach(({ value }, i) => {
 			elements.dots[i]	
 				.attr('cx', xScale(i))
-				.attr('cy', yScale(value))
-			;
+				.attr('cy', yScale(value));
+			elements.dotLabels[i]
+				.text(() => { 
+					if(name === 'oilPrice'){
+						return "$" + value.toFixed(0);
+					} else if(name === 'taxRate'){
+						return value.toFixed(0) + "%";
+					}  
+				})
+				.attr('x', xScale(i))
+				.attr('y', yScale(value) + 25);
 		});
 	}
 
@@ -58,8 +68,6 @@ export default class MovableChart extends EventEmitter {
 
 		priceAxis.tickSize(-chartWidth);
 		priceAxis.ticks(5);
-		// priceAxis.selectAll('text')
-		// 	.attr('y', 5)
 
 		elements.container.innerHTML = '';
 
@@ -68,15 +76,10 @@ export default class MovableChart extends EventEmitter {
 			.attr('width', width)
 			.attr('height', height);
 
-
 		elements.chartGroup = elements.svg.append('g')
 			.attr('transform', `translate(${margin.left},${margin.top})`);
 
-		// elements.chartGroup.append('rect')
-		// 	.attr('fill', 'white')
-		// 	.attr('width', chartWidth)
-		// 	.attr('height', chartHeight);
-
+		//add x axis year labels
 		elements.chartGroup.selectAll('text')
 			.data(years)
 			.enter()
@@ -91,19 +94,23 @@ export default class MovableChart extends EventEmitter {
 				.attr("class", "axis")
 				.call(priceAxis)
 				.selectAll('text')
-				.attr('y', -5)
-;
-
+				.attr('y', -5);
 
 		elements.connectingLine = elements.chartGroup.append('path')
 			.attr('class', 'movable-chart__connecting-line')
 			.attr('fill', 'none');
 
-
+		// add dots
 		elements.dots = years.map(() => {
 			return elements.chartGroup.append('circle')
 				.attr('class', 'movable-chart__dot')
 				.attr('r', '10');
+		});
+
+		elements.dotLabels = years.map( ({label, value }, i) => {
+			return elements.chartGroup.append('text')
+				.attr('class', 'movable-chart__dotLabel')
+				.attr('text-anchor', 'middle');
 		});
 
 
