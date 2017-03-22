@@ -33,14 +33,12 @@ export default class MovableChart extends EventEmitter {
 
 		elements.connectingLine.attr('d', pathDescriptor);
 
-		years.forEach(({ label, value }, i) => {
-				
+		years.forEach(({ value }, i) => {
 			elements.dots[i]	
 				.attr('cx', xScale(i))
 				.attr('cy', yScale(value))
 			;
 		});
-
 	}
 
 	init(){
@@ -128,9 +126,6 @@ export default class MovableChart extends EventEmitter {
 
 			mouseCatcher.addEventListener('click', (event) => {
 				event.preventDefault();
-				console.log(years[i].label);
-				console.log(yScale.invert(event.offsetY));
-				console.log("the click worked");
 				this.emit('update', { year: years[i].label, value: yScale.invert(event.offsetY) });
 			})
 

@@ -15,7 +15,6 @@ function calculator(){
 			//dynamically set oil price 
 			let oilPrice = currentYear.oilPrice;
 
-			console.log(currentYear.year + " oilprice: " + currentYear.oilPrice);
 
 			//sales
 			currentYear.sales = 365 * oilPrice * currentYear.oilProduction;
@@ -36,7 +35,7 @@ function calculator(){
 			//NB removed conditional if 0 + PLUS depreciation and amort
 			let taxRate = currentYear.taxRate;
 			currentYear.taxAmount = taxRate * (currentYear.preTax + currentYear.depAmort);
-			console.log(currentYear.year + " tax rate: " + currentYear.taxRate);
+			console.log(currentYear.year + " oilprice: " + currentYear.oilPrice + " tax rate: " + currentYear.taxRate);
 
 			//net profit
 			currentYear.netProfit = currentYear.preTax - currentYear.taxAmount;
@@ -51,6 +50,8 @@ function calculator(){
 			currentYear.freeCashFlow = currentYear.opCashFlow - currentYear.capEx;
 
 		}
+
+		console.log("------------------");
 
 		//terminal value of free cash flow 
 		let freeCashFlowTerminalValue = state.years[(state.years.length - 1)].freeCashFlow / (state.costOfEquity - state.terminalGrowthRate );

@@ -29,16 +29,53 @@ d3.selectAll('.scenario-button')
     myCalc.updateState(this.dataset);
   });
 
-//Oil price chart set config
-var oilPriceByYear = function(allYears){
-  let oP = [];
+//For moveable charts reconfigure properties so they can be read
+var reformatData = function(allYears, property){
+  let reformattedData = [];
   for(let inputYear in allYears){
-    let x = { label: allYears[inputYear].year,
-      value: allYears[inputYear].oilPrice }
-      oP.push(x);          
+    let x = { 
+      label: allYears[inputYear].year,
     }
-  return oP; 
+    if(property === 'oilPrice'){ x.value = allYears[inputYear].oilPrice }
+    else if(property === 'taxRate'){ x.value = allYears[inputYear].taxRate * 100 }
+
+    reformattedData.push(x);          
+  }
+
+   return compressDataForView(reformattedData); 
 } 
+
+var compressDataForView = function(data){
+  let shortenedYearList = generateYearList();
+  let shortenedData = [];
+
+  shortenedYearList.map(( year, i) =>{
+      if(year == data[i].label){
+        shortenedData.push(data[i]);
+      }
+      else if(year === 'onwards'){
+        data[i].label = 'onwards';
+        shortenedData.push(data[i]);
+      }
+    }
+  );
+  return shortenedData.slice(0,( numberYearsConfigurable +1) );
+}
+
+var uncompressDataForModel = function(){};
+
+//Generate list of years that can be configured
+var generateYearList = function(){
+  let yearlist = [];
+  for(let i =0; i < config.years.length; i++){
+    if(i < numberYearsConfigurable){
+      yearlist.push(parseInt(config.years[i].year));
+    } else{
+      yearlist.push('onwards');
+    }
+  }
+  return yearlist;
+}
 
 //Create and render moveable chart for oil prices
 const oilPriceChart = new MovableChart({
@@ -48,7 +85,7 @@ const oilPriceChart = new MovableChart({
     max: 100,
   });
 
-oilPriceChart.setYears(oilPriceByYear(config.years)).init();
+oilPriceChart.setYears(reformatData(config.years, 'oilPrice')).init();
 controlsOil.appendChild(oilPriceChart.elements.container); 
 
  //Add event dispatcher on data change in oil price chart
@@ -68,7 +105,7 @@ const taxRateChart = new MovableChart({
     min: 20,
     max: 100,
   });
-taxRateChart.setYears(oilPriceByYear(config.years)).init();
+taxRateChart.setYears(reformatData(config.years, 'taxRate')).init();
 controlsTax.appendChild(taxRateChart.elements.container);
 
  //Add event dispatcher on data change in tax rate chart
@@ -92,23 +129,10 @@ myCalc.getDispatcher()
     valueVisContainer
       .call(valueVisualisation);
 
-    oilPriceChart.setYears(oilPriceByYear(event.years)).update();
-    taxRateChart.setYears(event.years).update();
+    oilPriceChart.setYears(reformatData(event.years, 'oilPrice')).update();
+    taxRateChart.setYears(reformatData(event.years, 'taxRate')).update();
   });
 
-
-//Generate list of years that can be configured
-var generateYearList = function(){
-  let yearlist = [];
-  for(let i =0; i < config.years.length; i++){
-    if(i < numberYearsConfigurable){
-      yearlist.push(parseInt(config.years[i].year));
-    } else{
-      yearlist.push('onwards');
-    }
-  }
-  return yearlist;
-}
 
 //draw the visualisation
 valueVisContainer
