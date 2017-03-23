@@ -77,9 +77,14 @@ function handleBuildError(headline, error) {
     );
 
     if (error) {
-      report += (
-        `<pre style="text-align:left;max-width:800px">${ansiToHTML.toHtml(error.stack)}</pre>`
-      );
+      try {
+        report += (
+          `<pre style="text-align:left;max-width:800px">${ansiToHTML.toHtml(error && error.stack ? error.stack : error)}</pre>`
+        );
+      } catch (error2) {
+        console.error(error);
+        console.error('ansiToHTML could not process the above error!', error2);
+      }
     }
 
     browserSync.notify(report, 60 * 60 * 1000);

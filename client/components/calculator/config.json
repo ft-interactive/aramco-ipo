@@ -1,61 +1,69 @@
 {
-    "opexPerBarrel":5,
+    "opexPerBarrel":5.5,
     "capexPerBarrel":5,
     "rialExchangeRate":3.75,
-    "royalties": 0.15,
+    "royalties": 0.1,
     "sales2016":  172718000000,
-    "maxPossibleMarketCap": 985000000000,
-    "depAmortPerBoe": 0.77,
-    "costOfEquity": 0.1,
+    "gasPriceDomestic": 1.5,
+    "depAmortPerBoe": 0.75,
+    "costOfEquity": 0.09,
     "terminalGrowthRate": 0.02,
     "refiningChems": 40000000000,
+    "optimisticMarketCap": 985000000000,
     "years": [
         {
             "year": 2017,
             "oilPrice": 52, 
             "oilProduction": 10,
+            "gasProduction": 8.9,
             "depAmtRatio": 25,
             "taxRate": 0.5
         },
         {
             "year": 2018, 
-            "oilPrice": 52, 
+            "oilPrice": 53, 
             "oilProduction": 10,
+            "gasProduction": 9.6,
             "depAmtRatio": 25,
             "taxRate": 0.5
         },
         {
             "year": 2019, 
-            "oilPrice": 52, 
+            "oilPrice": 54, 
             "oilProduction": 10,
+            "gasProduction": 10.3,
             "depAmtRatio": 25,
             "taxRate": 0.5
         },
         {
             "year": 2020, 
-            "oilPrice": 52, 
+            "oilPrice": 55, 
             "oilProduction": 10,
+            "gasProduction": 11,
             "depAmtRatio": 25,
             "taxRate": 0.5
         },
         {
             "year": 2021, 
-            "oilPrice": 52, 
+            "oilPrice": 55, 
             "oilProduction": 10,
+            "gasProduction": 11,
             "depAmtRatio": 20,
             "taxRate": 0.5
         },
         {
             "year": 2022, 
-            "oilPrice": 52, 
+            "oilPrice": 55, 
             "oilProduction": 10,
+            "gasProduction": 11,
             "depAmtRatio": 20,
             "taxRate": 0.5
         },
         {
             "year": 2023, 
-            "oilPrice": 52, 
+            "oilPrice": 55, 
             "oilProduction": 10,
+            "gasProduction": 11,
             "depAmtRatio": 15,
             "taxRate": 0.5
         }
@@ -65,6 +73,7 @@
             "year": 2017,
             "oilPrice": 42, 
             "oilProduction": 10,
+            "gasProduction": 8.9,
             "depAmtRatio": 25,
             "taxRate": 0.7
         },
@@ -72,6 +81,7 @@
             "year": 2018, 
             "oilPrice": 42, 
             "oilProduction": 10,
+            "gasProduction": 9.6,
             "depAmtRatio": 25,
             "taxRate": 0.7
         },
@@ -79,6 +89,7 @@
             "year": 2019, 
             "oilPrice": 42, 
             "oilProduction": 10,
+            "gasProduction": 10.3,
             "depAmtRatio": 25,
             "taxRate": 0.7
         },
@@ -86,6 +97,7 @@
             "year": 2020, 
             "oilPrice": 42, 
             "oilProduction": 10,
+            "gasProduction": 11,
             "depAmtRatio": 25,
             "taxRate": 0.7
         },
@@ -93,6 +105,7 @@
             "year": 2021, 
             "oilPrice": 42, 
             "oilProduction": 10,
+            "gasProduction": 11,
             "depAmtRatio": 20,
             "taxRate": 0.7
         },
@@ -100,6 +113,7 @@
             "year": 2022, 
             "oilPrice": 42, 
             "oilProduction": 10,
+            "gasProduction": 11,
             "depAmtRatio": 20,
             "taxRate": 0.7
         },
@@ -107,6 +121,7 @@
             "year": 2023, 
             "oilPrice": 42, 
             "oilProduction": 10,
+            "gasProduction": 11,
             "depAmtRatio": 15,
             "taxRate": 0.7
         }
@@ -114,101 +129,115 @@
       "years_optimistic": [
         {
             "year": 2017,
-            "oilPrice": 55, 
+            "oilPrice": 52, 
             "oilProduction": 10,
+            "gasProduction": 8.9,
             "depAmtRatio": 25,
-            "taxRate": 0.4
+            "taxRate": 0.5
         },
         {
             "year": 2018, 
-            "oilPrice": 65, 
+            "oilPrice": 58, 
             "oilProduction": 10,
+            "gasProduction": 9.6,
             "depAmtRatio": 25,
-            "taxRate": 0.4
+            "taxRate": 0.5
         },
         {
             "year": 2019, 
-            "oilPrice": 65, 
+            "oilPrice": 61, 
             "oilProduction": 10,
+            "gasProduction": 10.3,
             "depAmtRatio": 25,
-            "taxRate": 0.4
+            "taxRate": 0.5
         },
         {
             "year": 2020, 
             "oilPrice": 65, 
             "oilProduction": 10,
+            "gasProduction": 11,
             "depAmtRatio": 25,
-            "taxRate": 0.4
+            "taxRate": 0.5
         },
         {
             "year": 2021, 
             "oilPrice": 65, 
             "oilProduction": 10,
+            "gasProduction": 11,
             "depAmtRatio": 20,
-            "taxRate": 0.4
+            "taxRate": 0.5
         },
         {
             "year": 2022, 
             "oilPrice": 65, 
             "oilProduction": 10,
+            "gasProduction": 11,
             "depAmtRatio": 20,
-            "taxRate": 0.4
+            "taxRate": 0.5
         },
         {
             "year": 2023, 
-            "oilPrice":60, 
+            "oilPrice":65, 
             "oilProduction": 10,
+            "gasProduction": 11,
             "depAmtRatio": 15,
-            "taxRate": 0.4
+            "taxRate": 0.5
         }
     ],
-      "years_neutral": [
+      "years_neutral": [   
         {
             "year": 2017,
             "oilPrice": 52, 
             "oilProduction": 10,
+            "gasProduction": 8.9,
             "depAmtRatio": 25,
             "taxRate": 0.5
         },
         {
             "year": 2018, 
-            "oilPrice": 52, 
+            "oilPrice": 53, 
             "oilProduction": 10,
+            "gasProduction": 9.6,
             "depAmtRatio": 25,
             "taxRate": 0.5
         },
         {
             "year": 2019, 
-            "oilPrice": 52, 
+            "oilPrice": 54, 
             "oilProduction": 10,
+            "gasProduction": 10.3,
             "depAmtRatio": 25,
             "taxRate": 0.5
         },
         {
             "year": 2020, 
-            "oilPrice": 52, 
+            "oilPrice": 55, 
             "oilProduction": 10,
+            "gasProduction": 11,
             "depAmtRatio": 25,
             "taxRate": 0.5
         },
         {
             "year": 2021, 
-            "oilPrice": 52, 
+            "oilPrice": 55, 
             "oilProduction": 10,
+            "gasProduction": 11,
             "depAmtRatio": 20,
             "taxRate": 0.5
         },
         {
             "year": 2022, 
-            "oilPrice": 52, 
+            "oilPrice": 55, 
             "oilProduction": 10,
+            "gasProduction": 11,
             "depAmtRatio": 20,
             "taxRate": 0.5
         },
         {
             "year": 2023, 
-            "oilPrice": 52, 
+            "oilPrice": 55, 
             "oilProduction": 10,
+            "gasProduction": 11,
             "depAmtRatio": 15,
             "taxRate": 0.5
         }
