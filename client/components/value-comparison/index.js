@@ -11,8 +11,8 @@ function valueComparison(){
         let h = 250;
         let containerWidth = document.querySelector('.value-visualisation').getBoundingClientRect().width;
         let w = (containerWidth < 660) ? (containerWidth - 15) : 660;
-        let maxPossibleValue = config.maxPossibleMarketCap
-        let maxPossibleDataset = [{"value": maxPossibleValue}];
+        let optimisticMarketCap = config.optimisticMarketCap;
+        let optimisticDataset = [{"value": optimisticMarketCap}];
         let padding = 5;
 
         var t = d3.transition()
@@ -20,7 +20,7 @@ function valueComparison(){
 
         //ensure that market cap value sets the *area* of the circle
         var rScale = d3.scalePow().exponent(0.5)
-                        .domain([0, maxPossibleValue ])
+                        .domain([0, optimisticMarketCap ])
                         .range([0, (w/6)]); 
 
         //allow for dynamic positioning of circles
@@ -71,7 +71,7 @@ function valueComparison(){
 
         //set optimistic company valuation as dotted circle      
         parent.selectAll(".value-visualisation__main-optimistic-marketcap")
-            .data(maxPossibleDataset)
+            .data(optimisticDataset)
             .enter()
             .append("circle")
             .classed("value-visualisation__main-optimistic-marketcap", true)

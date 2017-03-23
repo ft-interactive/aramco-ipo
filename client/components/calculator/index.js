@@ -15,9 +15,12 @@ function calculator(){
 			//dynamically set oil price 
 			let oilPrice = currentYear.oilPrice;
 
+			//natural gas sales 
+			currentYear.gasSales = currentYear.gasProduction * state.gasPriceDomestic * 365
 
 			//sales
-			currentYear.sales = 365 * oilPrice * currentYear.oilProduction;
+			currentYear.sales = 365 * oilPrice * currentYear.oilProduction + currentYear.gasSales;
+			console.log(currentYear.sales + " gas " + currentYear.gasSales);
 
 			//operating expenditure
 			currentYear.opEx = currentYear.oilProduction * 365 * state.opexPerBarrel; 
@@ -48,7 +51,6 @@ function calculator(){
 
 			//free cash flow
 			currentYear.freeCashFlow = currentYear.opCashFlow - currentYear.capEx;
-
 		}
 
 		console.log("------------------");
@@ -75,9 +77,9 @@ function calculator(){
 		let calculatedMarketCap = treasuryYieldBillion + state.refiningChems;
 
 		//assign calculated marketcap to visualisation
-		let marketCap = calculatedMarketCap;
+		console.log(" calculated marketcap: " + calculatedMarketCap);
 
-		dispatch.call('change', { marketCap: marketCap, years: state.years });
+		dispatch.call('change', { marketCap: calculatedMarketCap, years: state.years });
 	}
 
 	const updateState = function(o) {
