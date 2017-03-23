@@ -19,12 +19,16 @@ $o-grid-is-silent: false;
 
 .o-typography-body-wrapper h2 {
   margin-bottom: 4px;
+  margin-top: 20px;
 }
 
 .o-typography-lead--small {
   margin-bottom: 12px;
 }
 
+.section {
+  margin-bottom: 2em;
+}
 .value-visualisation {
 	// marketcap circles
 	&__marketcap{
@@ -61,6 +65,10 @@ $o-grid-is-silent: false;
 	&__nameLabelWhite{
 		fill: white;
 	}
+}
+.scenario-buttons {
+  margin-left: 0;
+  margin-top: 1em;
 }
 
 .movable-chart {
