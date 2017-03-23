@@ -17,9 +17,21 @@ $o-grid-is-silent: false;
                 - template.html
 */
 
+.o-typography-lead {
+  font-size: 22px;
+  line-height: 26px;
+}
+
+.o-typography-heading1 {
+  font-size: 36px;
+  line-height: 40px;
+}
+
+
 .o-typography-body-wrapper h2 {
   margin-bottom: 4px;
   margin-top: 20px;
+  font-size: 24px;
 }
 
 .o-typography-lead--small {
@@ -30,9 +42,9 @@ $o-grid-is-silent: false;
   margin-bottom: 2em;
 }
 .value-visualisation {
-	// marketcap circles
-	&__marketcap{
-		fill: #74736c; 
+  // marketcap circles
+  &__marketcap{
+    fill: #74736c; 
     fill-opacity: 0.7;
     stroke-width: 2px;
     stroke: #74736c;
@@ -40,48 +52,51 @@ $o-grid-is-silent: false;
   &__main-marketcap{
     fill: #26747a; 
     stroke: #26747a;
-	}
-	&__main-optimistic-marketcap{
-		fill: none;
-		stroke: rgb(215, 112, 108);
-		stroke-width: 2;
-		stroke-dasharray: 10; 
-	}
+  }
+  &__main-optimistic-marketcap{
+    fill: none;
+    stroke: #cec6b9;
+    stroke-width: 2;
+    stroke-dasharray: 8,4; 
+  }
   &__amountLabel{
     fill: white;
     text-anchor: middle;
-    font-size: 36px;
+    font-size: 28px;
   }
-	&__main-amountLabel{
+  &__main-amountLabel{
     font-weight: 600;
   }
   &__nameLabel{
     text-transform: capitalize;
     font-size: 18px;
   }
-	&__main-nameLabel{
+  &__main-nameLabel{
     font-weight: 600;
   }
-	&__nameLabelWhite{
-		fill: white;
-	}
+  &__nameLabelWhite{
+    fill: white;
+  }
 }
 .scenario-buttons {
-  margin-left: 0;
   margin-top: 1em;
+  & .scenario-button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 }
 
 .movable-chart {
-	// outline: 1px solid red;
+  // outline: 1px solid red;
 
-	> svg {
-		// outline: 1px solid blue;
-		display: block;
+  > svg {
+    // outline: 1px solid blue;
+    display: block;
 
     & text {
       font-feature-settings:'tnum' 1;
     }
-	}
+  }
   
   .axis line {
     fill: none;
@@ -100,19 +115,43 @@ $o-grid-is-silent: false;
     stroke-width: 0;
   }
 
-	&__dot {
-		fill: white;
-		stroke: #26747a;
-		stroke-width: 2;
-	}
+  &__dot {
+    fill: white;
+    stroke: #26747a;
+    stroke-width: 2;
+  }
 
-	&__connecting-line {
-		stroke: #26747a;
-		stroke-width: 3;
-	}
+  &__connecting-line {
+    stroke: #26747a;
+    stroke-width: 3;
+  }
 
-	&__mouse-catcher {
-		// outline: 1px solid green;
-	}
+  &__mouse-catcher {
+    // outline: 1px solid green;
+  }
 
+}
+
+@include oGridRespondTo(M) {
+
+  .o-typography-lead {
+    font-size: 26px;
+    line-height: 27px;
+  }
+
+  .o-typography-heading1 {
+    font-size: 40px;
+    line-height: 42px;
+  }
+}
+
+@include oGridRespondTo(S) {
+  .value-visualisation {
+     &__amountLabel{
+      font-size: 36px;
+    }
+  }
+  .o-typography-body-wrapper h2 {
+    font-size: 26px;
+  }
 }
