@@ -3,20 +3,6 @@ $o-grid-is-silent: false;
 @import 'components/core/main';
 @import 'o-grid/main';
 
-/*
-      TODO: delete this comment
-
-      Write your code here - keep it neat!
-      Split logical parts of you project into components e.g.
-
-      /client
-        - /components
-            - /component-name
-                - styles.scss
-                - index.js
-                - template.html
-*/
-
 .o-typography-lead {
   font-size: 22px;
   line-height: 26px;
@@ -26,7 +12,6 @@ $o-grid-is-silent: false;
   font-size: 36px;
   line-height: 40px;
 }
-
 
 .o-typography-body-wrapper h2 {
   margin-bottom: 4px;
@@ -41,6 +26,7 @@ $o-grid-is-silent: false;
 .section {
   margin-bottom: 2em;
 }
+
 .value-visualisation {
   // marketcap circles
   &__marketcap{
@@ -78,7 +64,9 @@ $o-grid-is-silent: false;
     fill: white;
   }
 }
-.scenario-buttons {
+
+.scenario-buttons, .taxrate-button {
+  margin-left: 0;
   margin-top: 1em;
   & .scenario-button {
     width: 100%;
@@ -86,17 +74,21 @@ $o-grid-is-silent: false;
   }
 }
 
-.movable-chart {
-  // outline: 1px solid red;
+.taxrate-button.selected {
+  background-color: red;
+}
 
-  > svg {
-    // outline: 1px solid blue;
-    display: block;
+.movable-chart {
+
+    cursor: pointer;
+
+	> svg {
+		display: block;
 
     & text {
       font-feature-settings:'tnum' 1;
-    }
-  }
+	  }
+	}
   
   .axis line {
     fill: none;
@@ -126,10 +118,6 @@ $o-grid-is-silent: false;
     stroke-width: 3;
   }
 
-  &__mouse-catcher {
-    // outline: 1px solid green;
-  }
-
 }
 
 @include oGridRespondTo(M) {
@@ -154,4 +142,5 @@ $o-grid-is-silent: false;
   .o-typography-body-wrapper h2 {
     font-size: 26px;
   }
+
 }

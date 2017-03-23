@@ -20,6 +20,7 @@ const numberYearsConfigurable = 3;
 const valueVisContainer = d3.select('.value-visualisation svg');
 const controlsOil = document.querySelector('.controls-oil');
 const controlsTax = document.querySelector('.controls-tax');
+const taxRateButtons = document.querySelectorAll('.taxrate-button');
 
 //create the calculator
 const myCalc = calculator();
@@ -42,7 +43,6 @@ var reformatData = function(allYears, property){
 
     reformattedData.push(x);          
   }
-
    return compressDataForView(reformattedData); 
 } 
 
@@ -61,7 +61,7 @@ var compressDataForView = function(data){
     }
   );
   return shortenedData.slice(0,( numberYearsConfigurable +1) );
-}
+};
 
 //Generate list of years that can be configured
 var generateYearList = function(){
@@ -75,6 +75,17 @@ var generateYearList = function(){
   }
   return yearlist;
 }
+
+var highlightSelected = function(chosenTaxRate, taxButtons){
+  for(let i =0; i < taxButtons.length; i++){
+      if(chosenTaxRate == taxButtons[i].dataset.taxrate){
+        taxButtons[i].classList.add('selected');
+      }
+      else {
+        taxButtons[i].classList.remove('selected');
+      }
+  }
+};
 
 //Create and render moveable chart for oil prices
 const oilPriceChart = new MovableChart({
@@ -98,25 +109,16 @@ controlsOil.appendChild(oilPriceChart.elements.container);
     });
   })
 
-//Create and render moveable chart for tax rate
-const taxRateChart = new MovableChart({
-    name: 'taxRate',
-    width: componentWidth,
-    height: 200,
-    min: 20,
-    max: 100,
-  });
-taxRateChart.setYears(reformatData(config.years, 'taxRate')).init();
-controlsTax.appendChild(taxRateChart.elements.container);
+ //Set up listener on tax rate buttons
+for(let i =0; i < taxRateButtons.length; i++){
+  taxRateButtons[i].addEventListener(
+    "click",
+    function(){
+      myCalc.updateState(this.dataset);
+     }
+  )
+};
 
- //Add event dispatcher on data change in tax rate chart
- taxRateChart.on('update', (payload) => {
-    let yearlist = generateYearList();
-    myCalc.updateState({
-      year: payload.year,
-      taxRate: parseFloat(payload.value / 100)
-    });
-  })
 
 //Set up a listener on the calculator so when it updates we can update the page
 myCalc.getDispatcher()
@@ -131,7 +133,7 @@ myCalc.getDispatcher()
       .call(valueVisualisation);
 
     oilPriceChart.setYears(reformatData(event.years, 'oilPrice')).update();
-    taxRateChart.setYears(reformatData(event.years, 'taxRate')).update();
+    highlightSelected(event.years[0].taxRate, taxRateButtons);
   });
 
 

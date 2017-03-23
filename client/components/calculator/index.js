@@ -15,12 +15,8 @@ function calculator(){
 			//dynamically set oil price 
 			let oilPrice = currentYear.oilPrice;
 
-			//natural gas sales 
-			currentYear.gasSales = currentYear.gasProduction * state.gasPriceDomestic * 365
-
 			//sales
-			currentYear.sales = 365 * oilPrice * currentYear.oilProduction + currentYear.gasSales;
-			console.log(currentYear.sales + " gas " + currentYear.gasSales);
+			currentYear.sales = (currentYear.oilPrice * currentYear.oilProduction * 365) + currentYear.gasSales;
 
 			//operating expenditure
 			currentYear.opEx = currentYear.oilProduction * 365 * state.opexPerBarrel; 
@@ -30,15 +26,14 @@ function calculator(){
 
 			//depreciation and amortization
 			currentYear.depAmort = state.depAmortPerBoe * currentYear.oilProduction * 365;
-
+			
 			//pre-tax profit
 			currentYear.preTax = currentYear.sales - (currentYear.opEx + currentYear.royalties + currentYear.depAmort);
-
+			
 			//tax amount
 			//NB removed conditional if 0 + PLUS depreciation and amort
 			let taxRate = currentYear.taxRate;
 			currentYear.taxAmount = taxRate * (currentYear.preTax + currentYear.depAmort);
-			console.log(currentYear.year + " oilprice: " + currentYear.oilPrice + " tax rate: " + currentYear.taxRate);
 
 			//net profit
 			currentYear.netProfit = currentYear.preTax - currentYear.taxAmount;
@@ -51,6 +46,8 @@ function calculator(){
 
 			//free cash flow
 			currentYear.freeCashFlow = currentYear.opCashFlow - currentYear.capEx;
+			console.log(currentYear.year + " taxrate: " + currentYear.taxRate);
+			console.log(currentYear.year + " free cash flow: " + currentYear.freeCashFlow);
 		}
 
 		console.log("------------------");
@@ -71,10 +68,8 @@ function calculator(){
 
 		let treasuryYield = npv(state.costOfEquity, accumulatedCashFlow) / 1000;
 
-		let treasuryYieldBillion = treasuryYield * 1000000000;
-
 		//calculated market cap
-		let calculatedMarketCap = treasuryYieldBillion + state.refiningChems;
+		let calculatedMarketCap = (treasuryYield + state.refiningChemsBn) * 1000000000;
 
 		//assign calculated marketcap to visualisation
 		console.log(" calculated marketcap: " + calculatedMarketCap);
@@ -83,6 +78,9 @@ function calculator(){
 	}
 
 	const updateState = function(o) {
+		console.log("this is called with");
+		console.log(o);
+
 		for(let i in state.years){
 
 			if(o.oilPrice){
@@ -93,13 +91,8 @@ function calculator(){
 					state.years[i].oilPrice = o.oilPrice; 
 				}
 			}
-			else if(o.taxRate){
-				if(state.years[i].year === o.year){ 
-					state.years[i].taxRate = o.taxRate; 
-				}
-				else if(state.years[i].year > 2019 && o.year === 'onwards') {
-					state.years[i].taxRate = o.taxRate; 
-				}
+			else if(o.taxrate){
+				state.years[i].taxRate = o.taxrate; 
 			}
 			else if(o.scenario){
 				if(o.scenario === 'optimistic'){

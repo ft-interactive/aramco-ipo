@@ -16,12 +16,12 @@ function valueComparison(){
         let padding = 5;
 
         var t = d3.transition()
-                .duration(1000);
+                .duration(1000)
 
         //ensure that market cap value sets the *area* of the circle
         var rScale = d3.scalePow().exponent(0.5)
                         .domain([0, optimisticMarketCap ])
-                        .range([0, (w/6)]); 
+                        .range([0, (w/6)]);
 
         //allow for dynamic positioning of circles
         var xPositioning = function(d, i){
