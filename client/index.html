@@ -1,40 +1,47 @@
 {% extends "layout.html" %}
 
 {% block article_body %}
-{% markdown %}
 <script src="https://ft-interactive.github.io/g-chartcolour/build/g-chartcolour.js"></script>
 <style>
     input[type="range"]{
         width: 80%;
     }
 </style>
-<div class="value-visualisation">
-    <svg preserveAspectRatio="none"></svg>
-</div>
-<div>
-   <div class="o-grid-row">
-        <button id="rise" class="o-buttons o-buttons--big scenario-button" 
-            data-scenario="optimistic" data-o-grid-colspan="12 S11 Scenter M4"> 
-            Blue sky
-        </button>
-        <button id="same" class="o-buttons o-buttons--big scenario-button" 
-            data-scenario="neutral" data-o-grid-colspan="12 S11 Scenter M4">
-            Grey sky
-        </button>
-        <button id="fall" class="o-buttons o-buttons--big scenario-button" 
-            data-scenario="pessimistic" data-o-grid-colspan="12 S11 Scenter M4">
-            Storm clouds
-        </button>
+    <div class="o-grid-row">
+        <div class="data-visualisation graphic">
+            
+            <div class="section value-visualisation">
+                <h2 class="o-typography-subhead">World’s largest companies </h2>
+                <div class="o-typography-lead--small">By market capitalisation ($bn)*</div>
+                <svg preserveAspectRatio="none"></svg>
+                <footer class="o-typography-footer">* Apple and Google valuation based on (xxx date) closing share price </footer>
+            </div>
+            <div class="section scenarios">
+                <h2 class="o-typography-subhead" >Choose a likely scenario</h2>
+                <div class="o-grid-row scenario-buttons">
+                    <button id="rise" class="o-buttons o-buttons--big scenario-button" 
+                        data-scenario="optimistic" data-o-grid-colspan="12 Scenter M4"> 
+                        Blue sky
+                    </button>
+                    <button id="same" class="o-buttons o-buttons--big scenario-button" 
+                        data-scenario="neutral" data-o-grid-colspan="12 Scenter M4">
+                        Grey sky
+                    </button>
+                    <button id="fall" class="o-buttons o-buttons--big scenario-button" 
+                        data-scenario="pessimistic" data-o-grid-colspan="12 Scenter M4">
+                        Storm clouds
+                </button>
+                </div>
+            </div>
+            <div class="section controls-oil">
+                <h2 class="o-typography-subhead">Set oil price </h2>
+                <div class="o-typography-lead--small">$ per barrel</div>
+            </div>
+            <div class="section controls-tax">
+                <h2 class="o-typography-subhead">Set tax rate</h2>
+                <div class="o-typography-lead--small">Per cent</div>
+            </div>
+        </div>
     </div>
-    </button>
 </div>
-<div class="controls-oil">
-    <h2 class="o-typography-subhead">Set oil price </h2>
-    <div class="o-typography-lead--small">$ per barrel</div>
-</div>
-<div class="controls-tax">
-    <h2 class="o-typography-subhead">Set tax rate</h2>
-    <div class="o-typography-lead--small">Per cent</div>
-</div>
-{% endmarkdown %}
 {% endblock %}

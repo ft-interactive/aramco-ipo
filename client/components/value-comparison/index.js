@@ -89,13 +89,14 @@ function valueComparison(){
             .enter()
             .append("text")
             .classed("value-visualisation__amountLabel", true)
+            .classed("value-visualisation__main-amountLabel", d => d.name === 'aramco')
             .attr("x", (d,i) => xPositioning(d, i))
             .attr("y", () => yPositioning());
 
         parent.selectAll(".value-visualisation__amountLabel").transition(t)       
-            .text(d => "$" + (Math.round(d.value / 1000000000)) + "bn")
+            .text(d => (Math.round(d.value / 1000000000)))
             .attr("x", (d,i) => xPositioning(d, i))
-            .attr("y", () => yPositioning())
+            .attr("y", () => yPositioning() + 9)
 
         //add name labels
         parent.selectAll(".value-visualisation__nameLabel")
@@ -103,12 +104,13 @@ function valueComparison(){
             .enter()
             .append("text")
             .classed("value-visualisation__nameLabel", true)
+            .classed("value-visualisation__main-nameLabel", d => d.name === 'aramco')
             .attr("x", (d,i) => xPositioning(d,i)) 
             .attr("y", () => yNamePositioning());
 
 
         parent.selectAll(".value-visualisation__nameLabel").transition(t)
-            .text(d => { return d.name.toUpperCase()} )
+            .text(d => { return d.name} )
             .attr("x", (d,i) => xPositioning(d,i)) 
             .attr("y", () => yNamePositioning())
             .style("text-anchor", "middle")
