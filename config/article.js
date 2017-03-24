@@ -16,7 +16,7 @@ export default () => ({ // eslint-disable-line
   // summary === standfirst (Summary is what the content API calls it)
   summary: 'Saudi State Oil company is likely to be the biggest company in the world when it goes to IPO next year.' +
   'Play with the factors that could push it to be the globe\'s first trillion dollar company or shrink it to middling tens of billions.' + 
-  'Choose a scenario or or fine tune two key variables, oil price and tax rates to determine just how large it could be.'
+  'Choose a scenario or or fine tune two key variables, oil price and tax rates to determine just how large it could be.',
 
   topic: {
     name: 'Saudi Aramco IPO',
