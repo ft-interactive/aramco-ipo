@@ -23,7 +23,7 @@ const market = marketData.marketdata('5d32d7c412')
         value:d.pricePerformance.marketCap,
       });
       d3.select('.value-visualisation footer')
-        .text(companyNames.join(', ') + ' valuation based on market cap data as of ' + dataTime);
+        .text('*' + companyNames.join(', ') + ' valuation based on market cap data as of ' + dataTime);
       valueVisContainer
         .call(valueVisualisation);
     })
@@ -163,7 +163,7 @@ myCalc.getDispatcher()
     valueVisContainer
       .call(valueVisualisation);
 
-    //update oil price chart  
+    //update oil price chart
     oilPriceChart.setYears(reformatData(event.years, 'oilPrice')).update();
 
     //update tax rate buttons
