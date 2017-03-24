@@ -72,21 +72,14 @@ function calculator(){
 	}
 
 	const updateState = function(o) {
-		console.log("this is called with");
-		console.log(o);
-
-
     if(o.scenario){
       if(o.scenario === 'optimistic'){
-        console.log('set optimistic');
         Object.assign(state.years, copyOf(state.years_optimistic));
       }
       else if(o.scenario === 'pessimistic'){
-        console.log('set pessimistic');
         Object.assign(state.years, copyOf(state.years_pessimistic));
       }
       else{
-        console.log('set neutral');
         Object.assign(state.years, copyOf(state.years_neutral));
       }
       calculate();
