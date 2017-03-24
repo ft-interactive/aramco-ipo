@@ -8,8 +8,8 @@ function valueComparison(){
     function draw(parent){
         let values = [ valueToCompare, ...context ]
 
-        let h = 250;
         let containerWidth = document.querySelector('.value-visualisation').getBoundingClientRect().width;
+        let h = (containerWidth < 660) ? (containerWidth * 0.5) : 660;
         let w = (containerWidth < 660) ? (containerWidth - 15) : 660;
         let optimisticMarketCap = config.optimisticMarketCap;
         let optimisticDataset = [{"value": optimisticMarketCap}];

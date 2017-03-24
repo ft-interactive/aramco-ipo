@@ -38,6 +38,7 @@ const valueVisContainer = d3.select('.value-visualisation svg');
 const controlsOil = document.querySelector('.controls-oil');
 const controlsTax = document.querySelector('.controls-tax');
 const taxRateButtons = document.querySelectorAll('.taxrate-button');
+const scenarioButtons = document.querySelectorAll('.scenario-button');
 
 //get the market data
 market('aapl,goog', true);
@@ -96,13 +97,24 @@ var generateYearList = function(){
   return yearlist;
 }
 
-var highlightSelected = function(chosenTaxRate, taxButtons){
-  for(let i =0; i < taxButtons.length; i++){
-      if(chosenTaxRate == taxButtons[i].dataset.taxrate){
-        taxButtons[i].classList.add('selected');
+var highlightSelected = function(chosenTaxRate, buttons){
+  for(let i =0; i < buttons.length; i++){
+      if(chosenTaxRate == buttons[i].dataset.taxrate){
+        buttons[i].classList.add('o-buttons--standout');
       }
       else {
-        taxButtons[i].classList.remove('selected');
+        buttons[i].classList.remove('o-buttons--standout');
+      }
+  }
+};
+
+var highlightSelectedScenario = function(scenario, buttons){
+  for(let i=0; i<buttons.length; i++){
+    if(scenario == buttons[i].dataset.scenario){
+        buttons[i].classList.add('o-buttons--standout');
+      }
+      else {
+        buttons[i].classList.remove('o-buttons--standout');
       }
   }
 };
@@ -139,7 +151,6 @@ for(let i =0; i < taxRateButtons.length; i++){
   )
 };
 
-
 //Set up a listener on the calculator so when it updates we can update the page
 myCalc.getDispatcher()
   .on('change', function(){
@@ -152,8 +163,14 @@ myCalc.getDispatcher()
     valueVisContainer
       .call(valueVisualisation);
 
+    //update oil price chart  
     oilPriceChart.setYears(reformatData(event.years, 'oilPrice')).update();
+
+    //update tax rate buttons
     highlightSelected(event.years[0].taxRate, taxRateButtons);
+
+    //update scenario buttons
+    highlightSelectedScenario(event.scenario, scenarioButtons);
   });
 
 
