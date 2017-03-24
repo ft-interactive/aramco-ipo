@@ -1,121 +1,133 @@
 const d3 = require('d3');
 const config = require('../calculator/config');
 
+function layoutCircles(data,rScale, maxWidth){
+  const radii = data.map(d=>({
+    data:d,
+    r:rScale(d.value)
+  }));
+
+  var totalCircleWidth = d3.sum(radii,d=>d.r) * 2;
+  var circleSpacing = (maxWidth - totalCircleWidth)/data.length-1;
+  let totalX = 0;
+  const positions = radii.map((d,i)=>{
+    const value = {
+      cx:totalX + d.r + (i * circleSpacing),
+      r:d.r,
+      data:d,
+    }
+    totalX = value.cx + d.r;
+    return value;
+  });
+
+  console.log(positions);
+  return positions;
+}
+
 function valueComparison(){
     let valueToCompare = 0;
     const context = [];
 
     function draw(parent){
         let values = [ valueToCompare, ...context ]
-
         let h = 250;
         let containerWidth = document.querySelector('.value-visualisation').getBoundingClientRect().width;
         let w = (containerWidth < 660) ? (containerWidth - 15) : 660;
         let optimisticMarketCap = config.optimisticMarketCap;
-        let optimisticDataset = [{"value": optimisticMarketCap}];
+
         let padding = 5;
 
         var t = d3.transition()
-                .duration(1000)
+                .duration(500)
 
         //ensure that market cap value sets the *area* of the circle
         var rScale = d3.scalePow().exponent(0.5)
                         .domain([0, optimisticMarketCap ])
                         .range([0, (w/6)]);
 
-        //allow for dynamic positioning of circles
-        var xPositioning = function(d, i){
-            var previousWidths;
-            if(i === 0){
-                return (w/3) - (w/6);
-            }
-            else {
-                let previousValues = values.slice(0, i);
-                previousWidths = previousValues.reduce(function(acc, d){ 
-                    return acc + (rScale(d.value) * 2.5); 
-                }, 0);
-                if(previousWidths < w/6 ){
-                    return (w/6 * i) + (padding * i) + rScale(d.value);
-                } 
-                return previousWidths + (padding * i) + rScale(d.value); 
-            }
-        }
+        var layout = layoutCircles(values, rScale, (w - padding * 2));
 
-        var yPositioning = function(){
-            return h/2;
-        }
-        var yNamePositioning = function(){
-            return h - padding;
-        }
-        
+        let optimisticDataset = [{
+          data:{
+            'value': optimisticMarketCap
+          },
+          cx:layout[0].cx,
+          r:rScale(optimisticMarketCap)
+        }];
+
+        console.log(optimisticDataset,layout);
+
+        const yPosition = h/2;
+        const yNamePosition = h - padding;
+
         parent.attr("viewbox", "0 0 " + w + " " + h)
                 .attr("height", h)
                 .attr("width", w);
 
-        //set company values as circles       
+        //set company values as circles
         parent.selectAll("circle")
-            .data(values, d => d.name )
+            .data(layout, d => d.data.name )
             .enter()
             .append("circle")
             .classed("value-visualisation__marketcap", true)
             .classed("value-visualisation__main-marketcap", d => d.name === 'aramco')
-            .attr("cx", (d,i) => xPositioning(d, i))
-            .attr("cy", d => yPositioning())
+            .attr("cx", d=>d.cx)
+            .attr("cy", yPosition);
 
         parent.selectAll(".value-visualisation__marketcap").transition(t)
-            .attr("r", d => rScale(d.value))
+            .attr("r", d=>d.r);
 
         parent.selectAll(".value-visualisation__marketcap").transition(t)
-            .attr("cx", (d,i) => xPositioning(d, i))
-            .attr("cy", d => yPositioning())
+            .attr("cx", d => d.cx)
+            .attr("cy", yPosition);
 
-        //set optimistic company valuation as dotted circle      
+        //set optimistic company valuation as dotted circle
         parent.selectAll(".value-visualisation__main-optimistic-marketcap")
             .data(optimisticDataset)
             .enter()
             .append("circle")
             .classed("value-visualisation__main-optimistic-marketcap", true)
-            .attr("cx", (d,i) => xPositioning(d, i))
-            .attr("cy", d => yPositioning());
+            .attr("cx", d=>d.cx)
+            .attr("cy", yPosition);
 
         parent.selectAll(".value-visualisation__main-optimistic-marketcap")
-            .attr("cx", (d,i) => xPositioning(d, i))
-            .attr("cy", d => yPositioning())
-            .attr("r", d => rScale(d.value))
+            .attr("cx", d=>d.x)
+            .attr("cy", d=>yPosition)
+            .attr("r", d=>d.r)
 
-        //add value labels     
+        //add value labels
         parent.selectAll(".value-visualisation__amountLabel")
-            .data(values, d => d.name ) 
+            .data(values, d => d.data.name )
             .enter()
             .append("text")
             .classed("value-visualisation__amountLabel", true)
             .classed("value-visualisation__main-amountLabel", d => d.name === 'aramco')
-            .attr("x", (d,i) => xPositioning(d, i))
-            .attr("y", () => yPositioning());
+            .attr("x", d=>d.cx)
+            .attr("y", yPosition);
 
-        parent.selectAll(".value-visualisation__amountLabel").transition(t)       
-            .text(d => (Math.round(d.value / 1000000000)))
-            .attr("x", (d,i) => xPositioning(d, i))
-            .attr("y", () => yPositioning() + 9)
+        parent.selectAll(".value-visualisation__amountLabel").transition(t)
+            .text(d => (Math.round(d.data.value / 1000000000)))
+            .attr("x", d => d.x)
+            .attr("y", yPosition)
 
         //add name labels
         parent.selectAll(".value-visualisation__nameLabel")
-            .data(values, d => d.name )
+            .data(values, d => d.data.name )
             .enter()
             .append("text")
             .classed("value-visualisation__nameLabel", true)
             .classed("value-visualisation__main-nameLabel", d => d.name === 'aramco')
-            .attr("x", (d,i) => xPositioning(d,i)) 
-            .attr("y", () => yNamePositioning());
+            .attr("x", d=>d.cx)
+            .attr("y", yPosition);
 
 
         parent.selectAll(".value-visualisation__nameLabel").transition(t)
             .text(d => { return d.name} )
-            .attr("x", (d,i) => xPositioning(d,i)) 
+            .attr("x", (d,i) => xPositioning(d,i))
             .attr("y", () => yNamePositioning())
             .style("text-anchor", "middle")
 
-        //if circle engulfs label, make label white 
+        //if circle engulfs label, make label white
         parent.selectAll('.value-visualisation__nameLabel')
             .classed("value-visualisation__nameLabelWhite", d => (rScale(d.value) * 2) > (h - (padding*2)));
 
