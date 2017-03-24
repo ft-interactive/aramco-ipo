@@ -63,8 +63,6 @@ function valueComparison(){
                 .attr("height", h)
                 .attr("width", w);
 
-console.log(layout)
-
         //set company values as circles
         parent.selectAll("circle")
             .data(layout, d => d.data.name )
