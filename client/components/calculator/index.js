@@ -12,24 +12,24 @@ function calculator(){
 		for(let i in state.years){
 			let currentYear = state.years[i];
 
-			//dynamically set oil price 
+			//dynamically set oil price
 			let oilPrice = currentYear.oilPrice;
 
 			//sales
 			currentYear.sales = (currentYear.oilPrice * currentYear.oilProduction * 365) + currentYear.gasSales;
 
 			//operating expenditure
-			currentYear.opEx = currentYear.oilProduction * 365 * state.opexPerBarrel; 
+			currentYear.opEx = currentYear.oilProduction * 365 * state.opexPerBarrel;
 
 			//royalties
 			currentYear.royalties = state.royalties * currentYear.sales;
 
 			//depreciation and amortization
 			currentYear.depAmort = state.depAmortPerBoe * currentYear.oilProduction * 365;
-			
+
 			//pre-tax profit
 			currentYear.preTax = currentYear.sales - (currentYear.opEx + currentYear.royalties + currentYear.depAmort);
-			
+
 			//tax amount
 			//NB removed conditional if 0 + PLUS depreciation and amort
 			let taxRate = currentYear.taxRate;
@@ -46,13 +46,9 @@ function calculator(){
 
 			//free cash flow
 			currentYear.freeCashFlow = currentYear.opCashFlow - currentYear.capEx;
-			console.log(currentYear.year + " taxrate: " + currentYear.taxRate);
-			console.log(currentYear.year + " free cash flow: " + currentYear.freeCashFlow);
 		}
 
-		console.log("------------------");
-
-		//terminal value of free cash flow 
+		//terminal value of free cash flow
 		let freeCashFlowTerminalValue = state.years[(state.years.length - 1)].freeCashFlow / (state.costOfEquity - state.terminalGrowthRate );
 
 		//10 year Treasury yield
@@ -62,8 +58,8 @@ function calculator(){
 			accumulatedCashFlow.push(state.years[i].freeCashFlow);
 		}
 		accumulatedCashFlow.splice(
-			accumulatedCashFlow[accumulatedCashFlow.length -1], 
-			1, 
+			accumulatedCashFlow[accumulatedCashFlow.length -1],
+			1,
 			(accumulatedCashFlow[accumulatedCashFlow.length -1] + freeCashFlowTerminalValue));
 
 		let treasuryYield = npv(state.costOfEquity, accumulatedCashFlow) / 1000;
@@ -72,8 +68,6 @@ function calculator(){
 		let calculatedMarketCap = (treasuryYield + state.refiningChemsBn) * 1000000000;
 
 		//assign calculated marketcap to visualisation
-		console.log(" calculated marketcap: " + calculatedMarketCap);
-
 		dispatch.call('change', { marketCap: calculatedMarketCap, years: state.years });
 	}
 
@@ -81,33 +75,37 @@ function calculator(){
 		console.log("this is called with");
 		console.log(o);
 
-		for(let i in state.years){
 
+    if(o.scenario){
+      if(o.scenario === 'optimistic'){
+        console.log('set optimistic');
+        Object.assign(state.years, copyOf(state.years_optimistic));
+      }
+      else if(o.scenario === 'pessimistic'){
+        console.log('set pessimistic');
+        Object.assign(state.years, copyOf(state.years_pessimistic));
+      }
+      else{
+        console.log('set neutral');
+        Object.assign(state.years, copyOf(state.years_neutral));
+      }
+      calculate();
+      return;
+    }
+
+		for(let i in state.years){
 			if(o.oilPrice){
-				if(state.years[i].year === o.year){ 
-					state.years[i].oilPrice = o.oilPrice; 
+				if(state.years[i].year === o.year){
+					state.years[i].oilPrice = o.oilPrice;
 				}
 				else if(state.years[i].year > 2019 && o.year === 'onwards') {
-					state.years[i].oilPrice = o.oilPrice; 
+					state.years[i].oilPrice = o.oilPrice;
 				}
 			}
 			else if(o.taxrate){
-				state.years[i].taxRate = o.taxrate; 
+				state.years[i].taxRate = o.taxrate;
 			}
-			else if(o.scenario){
-				if(o.scenario === 'optimistic'){
-					Object.assign(state.years, state.years_optimistic);
-				}
-				else if(o.scenario === 'pessimistic'){
-					Object.assign(state.years, state.years_pessimistic);
-				}
-				else{
-					Object.assign(state.years, state.years_neutral);
-				}
-			}
-
 		}
-	
 		calculate();
 	}
 
@@ -117,5 +115,9 @@ function calculator(){
 		getDispatcher: () => dispatch,
 	};
 };
+
+function copyOf(o){
+  return JSON.parse(JSON.stringify(o));
+}
 
 module.exports = calculator;
