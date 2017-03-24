@@ -14,7 +14,7 @@ export default () => ({ // eslint-disable-line
   headline: 'IPO calculator: how much will Saudi Aramco be worth?',
 
   // summary === standfirst (Summary is what the content API calls it)
-  summary: 'Saudi Aramco is set to become the world’s largest company, how big is up to you. Choose a scenario or fine tune various measures such as oil price and tax rates to determine just how large Saudi Aramco is likely to be when it launches its IPO.',
+  summary: 'Saudi Aramco is set to become the world’s largest company, how big is up to you. Choose a scenario or or fine tune two key variables, oil price and tax rates to determine just how large Saudi Aramco is likely to be when it launches its IPO.',
 
   topic: {
     name: 'Saudi Aramco IPO',
@@ -38,7 +38,7 @@ export default () => ({ // eslint-disable-line
   // if array of authors, url is optional
   byline: [
     { name: 'Anna Leach' },
-    { name: 'Alan Livesey', url: 'https://www.ft.com/stream/authorsId/OTFlYjViMWEtYWZmOC00ODQwLWJjOTktNGVmYTc4ZjlhZjEy-QXV0aG9ycw==' },
+    { name: 'Alan Livsey', url: 'https://www.ft.com/stream/authorsId/OTFlYjViMWEtYWZmOC00ODQwLWJjOTktNGVmYTc4ZjlhZjEy-QXV0aG9ycw==' },
     { name: 'Steve Bernard', url: 'https://www.ft.com/steve-bernard' },
     { name: 'Tom Pearson', url: 'https://www.ft.com/tom-pearson' },
   ],
