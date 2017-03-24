@@ -5,7 +5,7 @@ export default () => ({ // eslint-disable-line
 
   // canonical URL of the published page
   // https://ig.ft.com/sites/aramco-ipo get filled in by the ./configure script
-  url: 'https://ig.ft.com/sites/aramco-ipo',
+  url: 'https://ig.ft.com/saudi-aramco-ipo-calculator',
 
   // To set an exact publish date do this:
   //       new Date('2016-05-17T17:11:22Z')
@@ -17,13 +17,13 @@ export default () => ({ // eslint-disable-line
   summary: 'Saudi Aramco is set to become the world’s largest company, how big is up to you. Choose a scenario or fine tune various measures such as oil price and tax rates to determine just how large Saudi Aramco is likely to be when it launches its IPO.',
 
   topic: {
-    name: 'Starter Kit',
-    url: '/foo',
+    name: 'Saudi Aramco IPO',
+    url: 'https://www.ft.com/saudi-aramco-ipo',
   },
 
   relatedArticle: {
-    text: 'Related article »',
-    url: 'https://en.wikipedia.org/wiki/Politics_and_the_English_Language',
+    text: '',
+    url: '',
   },
 
   mainImage: {
@@ -37,15 +37,17 @@ export default () => ({ // eslint-disable-line
   // Byline can by a plain string, markdown, or array of authors
   // if array of authors, url is optional
   byline: [
-    { name: 'Author One', url: '/foo/bar' },
-    { name: 'Author Two' },
+    { name: 'Anna Leach' },
+    { name: 'Alan Livesey', url: 'https://www.ft.com/stream/authorsId/OTFlYjViMWEtYWZmOC00ODQwLWJjOTktNGVmYTc4ZjlhZjEy-QXV0aG9ycw==' },
+    { name: 'Steve Bernard', url: 'https://www.ft.com/steve-bernard' },
+    { name: 'Tom Pearson', url: 'https://www.ft.com/tom-pearson' },
   ],
 
   // Appears in the HTML <title>
-  title: '',
+  title: 'Saudi Aramco IPO valuation calculator',
 
   // meta data
-  description: '',
+  description: 'Saudi Aramco is set to become the world’s largest company, how big is up to you.',
 
   /*
   TODO: Select Twitter card type -
@@ -61,15 +63,15 @@ export default () => ({ // eslint-disable-line
         optional social meta data?
   */
   // General social
-  // socialImage: '',
-  // socialHeadline: '',
-  // socialSummary:  '',
+//socialImage: '',
+socialHeadline: 'IPO calculator: how much will Saudi Aramco be worth?',
+socialSummary:  'Saudi Aramco is set to become the world’s largest company, how big is up to you.',
 
   // TWITTER
   // twitterImage: '',
-  // twitterCreator: '@individual's_account',
-  // tweetText:  '',
-  // twitterHeadline:  '',
+twitterCreator: '@ftlex',
+tweetText:  'Saudi Aramco is set to become the world’s largest company, how big is up to you.',
+twitterHeadline:  'IPO calculator: how much will Saudi Aramco be worth?',
 
   // FACEBOOK
   // facebookImage: '',
