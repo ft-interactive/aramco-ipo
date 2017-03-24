@@ -30,8 +30,13 @@ function valueComparison(){
 
     function draw(parent){
         let values = [ valueToCompare, ...context ]
+<<<<<<< HEAD
         let h = 250;
+=======
+
+>>>>>>> master
         let containerWidth = document.querySelector('.value-visualisation').getBoundingClientRect().width;
+        let h = (containerWidth < 660) ? (containerWidth * 0.5) : 660;
         let w = (containerWidth < 660) ? (containerWidth - 15) : 660;
         let optimisticMarketCap = config.optimisticMarketCap;
 

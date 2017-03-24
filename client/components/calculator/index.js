@@ -6,6 +6,7 @@ const npv = require('./npv');
 function calculator(){
 	const state = config;
 	const dispatch = d3.dispatch('change');
+	var scenario = 'neutral';
 
 	const calculate = function (){
 
@@ -68,26 +69,32 @@ function calculator(){
 		let calculatedMarketCap = (treasuryYield + state.refiningChemsBn) * 1000000000;
 
 		//assign calculated marketcap to visualisation
-		dispatch.call('change', { marketCap: calculatedMarketCap, years: state.years });
+		dispatch.call('change', { 
+			marketCap: calculatedMarketCap, 
+			years: state.years, 
+			scenario: scenario
+		});
 	}
 
 	const updateState = function(o) {
-    if(o.scenario){
-      if(o.scenario === 'optimistic'){
-        Object.assign(state.years, copyOf(state.years_optimistic));
-      }
-      else if(o.scenario === 'pessimistic'){
-        Object.assign(state.years, copyOf(state.years_pessimistic));
-      }
-      else{
-        Object.assign(state.years, copyOf(state.years_neutral));
-      }
-      calculate();
-      return;
-    }
+	    if(o.scenario){
+	    	updateScenario(o.scenario);
+	      if(o.scenario === 'optimistic'){
+	        Object.assign(state.years, copyOf(state.years_optimistic));
+	      }
+	      else if(o.scenario === 'pessimistic'){
+	        Object.assign(state.years, copyOf(state.years_pessimistic));
+	      }
+	      else{
+	        Object.assign(state.years, copyOf(state.years_neutral));
+	      }
+	      calculate();
+	      return;
+	    }
 
 		for(let i in state.years){
 			if(o.oilPrice){
+				updateScenario('custom');
 				if(state.years[i].year === o.year){
 					state.years[i].oilPrice = o.oilPrice;
 				}
@@ -96,10 +103,16 @@ function calculator(){
 				}
 			}
 			else if(o.taxrate){
+				updateScenario('custom');
 				state.years[i].taxRate = o.taxrate;
 			}
 		}
 		calculate();
+	}
+
+	const updateScenario = function(scenarioChosen){
+		scenario = scenarioChosen;
+		return scenario;
 	}
 
 	return {
