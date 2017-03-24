@@ -14,10 +14,8 @@ export default class MovableChart extends EventEmitter {
 		this.name = name;
 		this.width = width;
 		this.height = height;
-
 		this.min = min;
 		this.max = max;
-
 		this.elements = { container };
 	}
 
@@ -113,10 +111,10 @@ export default class MovableChart extends EventEmitter {
 				.attr('text-anchor', 'middle');
 		});
 
-
 		// add mouse catchers
 		years.forEach(({ label, value }, i) => {
 			const mouseCatcher = document.createElement('div');
+			let dragging;
 			mouseCatcher.classList.add('movable-chart__mouse-catcher');
 			mouseCatcher.style.position = 'absolute';
 			mouseCatcher.style.left = `${(sliderWidth * i) + margin.left}px`;
@@ -124,31 +122,44 @@ export default class MovableChart extends EventEmitter {
 			mouseCatcher.style.height = `${chartHeight}px`;
 			mouseCatcher.style.width = `${sliderWidth}px`;
 
-			mouseCatcher.addEventListener('mousemove', (event) => {
-				if (event.which !== 1) return;
+			const handleMouseEvent = (event) => {
 				event.preventDefault();
 				this.emit('update', { year: years[i].label, value: yScale.invert(event.offsetY) });
+			}
+
+			mouseCatcher.addEventListener('mousemove', (event) => {
+				if (!dragging) return;
+				handleMouseEvent
 			});
 
 			mouseCatcher.addEventListener('mousedown', (event) => {
-				event.preventDefault();
-
-				this.emit('update', { year: years[i].label, value: yScale.invert(event.offsetY) });
+				dragging = true;
+				handleMouseEvent
 			});
 
 			mouseCatcher.addEventListener('mouseup', (event) => {
-				event.preventDefault();
-				this.emit('update', { year: years[i].label, value: yScale.invert(event.offsetY) });
+				dragging = false;
+				handleMouseEvent
 			});
 
 			mouseCatcher.addEventListener('click', (event) => {
+				handleMouseEvent
+			});
+
+			const handleTouchEvent = (event) => {
 				event.preventDefault();
-				this.emit('update', { year: years[i].label, value: yScale.invert(event.offsetY) });
-			})
+				let yPosition = event.touches[0].clientY - event.target.getBoundingClientRect().top;
+				if (yPosition < 0) yPosition = 0;
+				else if (yPosition > chartHeight) yPosition = chartHeight;
+				this.emit('update', { year: years[i].label, value: yScale.invert(yPosition) });
+			};
+
+			mouseCatcher.addEventListener('touchstart',  handleTouchEvent);
+			mouseCatcher.addEventListener('touchmove',  handleTouchEvent);
+			mouseCatcher.addEventListener('touchend', handleTouchEvent);
 
 			elements.container.appendChild(mouseCatcher);
 		})		
-
 		elements.container.appendChild(elements.svg.node());
 
 		this.update();
