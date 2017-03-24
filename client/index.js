@@ -8,12 +8,29 @@ import MovableChart from './components/movable-chart';
 
 //set up the visualisation drawer
 const valueVisualisation = valueComparison()
-  .addValue({name:'aramco', value:0})
-  .addContext({name:'apple', value:600000000000})
-  .addContext({name:'exxon', value:300000000000});
-  
-let chartContainerWidth = document.querySelector('.controls-oil').getBoundingClientRect().width; 
-const componentWidth = (chartContainerWidth < 660) ? (chartContainerWidth - 15) : 660; 
+  .addValue({name:'aramco', value:0});
+
+const marketData = require('marketdata-getter');
+const market = marketData.marketdata('5d32d7c412')
+  .callback((response)=>{
+    const dataTime = d3.timeFormat('%e %B %Y')
+      (d3.isoParse(response.timeGenerated));
+    const companyNames = [];
+    response.data.items.forEach((d,i)=>{
+      companyNames.push(d.basic.name);
+      valueVisualisation.addContext({
+        name:d.basic.name,
+        value:d.pricePerformance.marketCap,
+      });
+      d3.select('.value-visualisation footer')
+        .text(companyNames.join(', ') + ' valuation based on market cap data as of ' + dataTime);
+      valueVisContainer
+        .call(valueVisualisation);
+    })
+  });
+
+let chartContainerWidth = document.querySelector('.controls-oil').getBoundingClientRect().width;
+const componentWidth = (chartContainerWidth < 660) ? (chartContainerWidth - 15) : 660;
 const numberYearsConfigurable = 3;
 
 //DOM elements
@@ -22,10 +39,13 @@ const controlsOil = document.querySelector('.controls-oil');
 const controlsTax = document.querySelector('.controls-tax');
 const taxRateButtons = document.querySelectorAll('.taxrate-button');
 
+//get the market data
+market('aapl,goog', true);
+
 //create the calculator
 const myCalc = calculator();
 
-//Set up listener on the scenario buttons 
+//Set up listener on the scenario buttons
 d3.selectAll('.scenario-button')
   .on('click',function(){
     myCalc.updateState(this.dataset);
@@ -35,16 +55,16 @@ d3.selectAll('.scenario-button')
 var reformatData = function(allYears, property){
   let reformattedData = [];
   for(let inputYear in allYears){
-    let x = { 
+    let x = {
       label: allYears[inputYear].year,
     }
     if(property === 'oilPrice'){ x.value = allYears[inputYear].oilPrice }
     else if(property === 'taxRate'){ x.value = allYears[inputYear].taxRate * 100 }
 
-    reformattedData.push(x);          
+    reformattedData.push(x);
   }
-   return compressDataForView(reformattedData); 
-} 
+   return compressDataForView(reformattedData);
+}
 
 var compressDataForView = function(data){
   let shortenedYearList = generateYearList();
@@ -97,12 +117,12 @@ const oilPriceChart = new MovableChart({
   });
 
 oilPriceChart.setYears(reformatData(config.years, 'oilPrice')).init();
-controlsOil.appendChild(oilPriceChart.elements.container); 
+controlsOil.appendChild(oilPriceChart.elements.container);
 
  //Add event dispatcher on data change in oil price chart
  oilPriceChart.on('update', (payload) => {
     let yearlist = generateYearList();
-    
+
     myCalc.updateState({
       year: payload.year,
       oilPrice: payload.value
