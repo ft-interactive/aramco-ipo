@@ -13,47 +13,36 @@ const valueVisualisation = valueComparison()
 const marketData = require('marketdata-getter');
 const market = marketData.marketdata('5d32d7c412')
   .callback((response)=>{
-    const dataTime = d3.timeFormat('%e %B %Y')
-      (d3.isoParse(response.timeGenerated));
-    const companyNames = [];
-    const companies = [];
+    let appleValue = 0;
+    let alphabetValue = 0;
     
     response.data.items.forEach((d,i)=>{
-      let compobj = { name: d.basic.name, value: d.pricePerformance.marketCap }
-      companies.push(compobj);
-    });
-
-    let deduped = companies.map(({name, value}, i)=>{
-      if(i > 0){
-        let prevCompany = companies[i-1];
-        if(name === prevCompany.name){
-          let sum = parseInt(prevCompany.value) + parseInt(value);
-          return {name, value: sum};
-        }
-        else{ return {name: null, value: null}; }
+      if (d.symbolInput === 'aapl') {
+        appleValue += Number(d.pricePerformance.marketCap);
       }
-      else{ return { name, value: parseInt(value)}; }
+      else if (d.symbolInput === 'goog' || d.symbolInput === 'googl') {
+        alphabetValue += Number(d.pricePerformance.marketCap);
+      }
+      else throw new Error(`Unexpected ticker symbol in results: ${d.symbolInput}`);
+    });
+    
+    valueVisualisation.addContext({
+      name: 'Apple',
+      value: appleValue,
     });
 
-    let companiesDeduped = deduped.filter((obj, pos)=>{
-      return obj.name !== null; 
+    valueVisualisation.addContext({
+      name: 'Alphabet',
+      value: alphabetValue,
     });
 
-    companiesDeduped.map((d)=>{
-      companyNames.push(d.name);
-    });
+    valueVisContainer.call(valueVisualisation);
 
-    companiesDeduped.forEach(d=>{
-      valueVisualisation.addContext({
-        name: d.name,
-        value: d.value,
-      })
+    const dataTime = d3.timeFormat('%e %B %Y')
+      (d3.isoParse(response.timeGenerated));
+
     d3.select('.value-visualisation footer')
-    .text('*' + companyNames.join(', ') + ' valuation based on market cap data as of ' + dataTime);
-
-    valueVisContainer
-    .call(valueVisualisation);
-  })
+      .text('* Apple and Alphabet valuation based on market cap data as of ' + dataTime);
 });
 
 let chartContainerWidth = document.querySelector('.controls-oil').getBoundingClientRect().width;
