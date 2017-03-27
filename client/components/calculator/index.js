@@ -33,8 +33,7 @@ function calculator(){
 
 			//tax amount
 			//NB removed conditional if 0 + PLUS depreciation and amort
-			let taxRate = currentYear.taxRate;
-			currentYear.taxAmount = taxRate * (currentYear.preTax + currentYear.depAmort);
+			currentYear.taxAmount = state.taxRate * (currentYear.preTax + currentYear.depAmort);
 
 			//net profit
 			currentYear.netProfit = currentYear.preTax - currentYear.taxAmount;
@@ -77,6 +76,7 @@ function calculator(){
 	}
 
 	const updateState = function(o) {
+
 	    if(o.scenario){
 	    	updateScenario(o.scenario);
 	      if(o.scenario === 'optimistic'){
@@ -102,9 +102,9 @@ function calculator(){
 					state.years[i].oilPrice = o.oilPrice;
 				}
 			}
-			else if(o.taxrate){
+			else if(o.oilprod){
 				updateScenario('custom');
-				state.years[i].taxRate = o.taxrate;
+				state.years[i].oilProduction = parseInt(o.oilprod);
 			}
 		}
 		calculate();

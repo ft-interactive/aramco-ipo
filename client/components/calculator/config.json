@@ -9,6 +9,7 @@
     "terminalGrowthRate": 0.02,
     "refiningChemsBn": 40,
     "optimisticMarketCap": 881000000000,
+    "taxRate": 0.5,
     "years": [
         {
             "year": 2017,
@@ -16,7 +17,6 @@
             "oilProduction": 10,
             "gasSales": 4876,
             "depAmtRatio": 25,
-            "taxRate": 0.5
         },
         {
             "year": 2018, 
@@ -24,7 +24,6 @@
             "oilProduction": 10,
             "gasSales": 5231,
             "depAmtRatio": 25,
-            "taxRate": 0.5
         },
         {
             "year": 2019, 
@@ -32,7 +31,6 @@
             "oilProduction": 10,
             "gasSales": 5613,
             "depAmtRatio": 25,
-            "taxRate": 0.5
         },
         {
             "year": 2020, 
@@ -40,7 +38,6 @@
             "oilProduction": 10,
             "gasSales": 6023,
             "depAmtRatio": 25,
-            "taxRate": 0.5
         },
         {
             "year": 2021, 
@@ -48,7 +45,6 @@
             "oilProduction": 10,
             "gasSales": 6023,
             "depAmtRatio": 20,
-            "taxRate": 0.5
         },
         {
             "year": 2022, 
@@ -56,7 +52,6 @@
             "oilProduction": 10,
             "gasSales": 6023,
             "depAmtRatio": 20,
-            "taxRate": 0.5
         },
         {
             "year": 2023, 
@@ -64,123 +59,108 @@
             "oilProduction": 10,
             "gasSales": 6023,
             "depAmtRatio": 15,
-            "taxRate": 0.5
         }
     ],
     "years_pessimistic": [
         {
             "year": 2017,
             "oilPrice": 42, 
-            "oilProduction": 10,
+            "oilProduction": 8,
             "gasSales": 4876,
             "depAmtRatio": 25,
-            "taxRate": 0.7
         },
         {
             "year": 2018, 
             "oilPrice": 42, 
-            "oilProduction": 10,
+            "oilProduction": 8,
             "gasSales": 5231,
             "depAmtRatio": 25,
-            "taxRate": 0.7
         },
         {
             "year": 2019, 
             "oilPrice": 42, 
-            "oilProduction": 10,
+            "oilProduction": 8,
             "gasSales": 5613,
             "depAmtRatio": 25,
-            "taxRate": 0.7
         },
         {
             "year": 2020, 
             "oilPrice": 42, 
-            "oilProduction": 10,
+            "oilProduction": 8,
             "gasSales": 6023,
             "depAmtRatio": 25,
-            "taxRate": 0.7
         },
         {
             "year": 2021, 
             "oilPrice": 42, 
-            "oilProduction": 10,
+            "oilProduction": 8,
             "gasSales": 6023,
             "depAmtRatio": 20,
-            "taxRate": 0.7
         },
         {
             "year": 2022, 
             "oilPrice": 42, 
-            "oilProduction": 10,
+            "oilProduction": 8,
             "gasSales": 6023,
             "depAmtRatio": 20,
-            "taxRate": 0.7
         },
         {
             "year": 2023, 
             "oilPrice": 42, 
-            "oilProduction": 10,
+            "oilProduction": 8,
             "gasSales": 6023,
             "depAmtRatio": 15,
-            "taxRate": 0.7
         }
     ],
       "years_optimistic": [
         {
             "year": 2017,
             "oilPrice": 52, 
-            "oilProduction": 10,
+            "oilProduction": 12,
             "gasSales":  4876,
             "depAmtRatio": 25,
-            "taxRate": 0.5
         },
         {
             "year": 2018, 
             "oilPrice": 58, 
-            "oilProduction": 10,
+            "oilProduction": 12,
             "gasSales":  5231,
             "depAmtRatio": 25,
-            "taxRate": 0.5
         },
         {
             "year": 2019, 
             "oilPrice": 61, 
-            "oilProduction": 10,
+            "oilProduction": 12,
             "gasSales":  5613,
             "depAmtRatio": 25,
-            "taxRate": 0.5
         },
         {
             "year": 2020, 
             "oilPrice": 65, 
-            "oilProduction": 10,
+            "oilProduction": 12,
             "gasSales":  6023,
             "depAmtRatio": 25,
-            "taxRate": 0.5
         },
         {
             "year": 2021, 
             "oilPrice": 65, 
-            "oilProduction": 10,
+            "oilProduction": 12,
             "gasSales":  6023,
             "depAmtRatio": 20,
-            "taxRate": 0.5
         },
         {
             "year": 2022, 
             "oilPrice": 65, 
-            "oilProduction": 10,
+            "oilProduction": 12,
             "gasSales":  6023,
             "depAmtRatio": 20,
-            "taxRate": 0.5
         },
         {
             "year": 2023, 
             "oilPrice":65, 
-            "oilProduction": 10,
+            "oilProduction": 12,
             "gasSales":  6023,
             "depAmtRatio": 15,
-            "taxRate": 0.5
         }
     ],
       "years_neutral": [   
@@ -190,7 +170,6 @@
             "oilProduction": 10,
             "gasSales": 4876,
             "depAmtRatio": 25,
-            "taxRate": 0.5
         },
         {
             "year": 2018, 
@@ -198,7 +177,6 @@
             "oilProduction": 10,
             "gasSales": 5231,
             "depAmtRatio": 25,
-            "taxRate": 0.5
         },
         {
             "year": 2019, 
@@ -206,7 +184,6 @@
             "oilProduction": 10,
             "gasSales": 5613,
             "depAmtRatio": 25,
-            "taxRate": 0.5
         },
         {
             "year": 2020, 
@@ -214,7 +191,6 @@
             "oilProduction": 10,
             "gasSales": 6023,
             "depAmtRatio": 25,
-            "taxRate": 0.5
         },
         {
             "year": 2021, 
@@ -222,7 +198,6 @@
             "oilProduction": 10,
             "gasSales": 6023,
             "depAmtRatio": 20,
-            "taxRate": 0.5
         },
         {
             "year": 2022, 
@@ -230,7 +205,6 @@
             "oilProduction": 10,
             "gasSales": 6023,
             "depAmtRatio": 20,
-            "taxRate": 0.5
         },
         {
             "year": 2023, 
@@ -238,7 +212,6 @@
             "oilProduction": 10,
             "gasSales": 6023,
             "depAmtRatio": 15,
-            "taxRate": 0.5
         }
     ]
 }
