@@ -122,11 +122,6 @@ export default class MovableChart extends EventEmitter {
 			mouseCatcher.style.height = `${chartHeight}px`;
 			mouseCatcher.style.width = `${sliderWidth}px`;
 
-			// const handleMouseEvent = (event) => {
-			// 	event.preventDefault();
-			// 	this.emit('update', { year: years[i].label, value: yScale.invert(event.offsetY) });
-			// }
-
 			mouseCatcher.addEventListener(
 				'mousemove', 
 				(event) => {

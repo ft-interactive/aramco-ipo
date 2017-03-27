@@ -16,18 +16,45 @@ const market = marketData.marketdata('5d32d7c412')
     const dataTime = d3.timeFormat('%e %B %Y')
       (d3.isoParse(response.timeGenerated));
     const companyNames = [];
+    const companies = [];
+    
     response.data.items.forEach((d,i)=>{
-      companyNames.push(d.basic.name);
+      let compobj = { name: d.basic.name, value: d.pricePerformance.marketCap }
+      companies.push(compobj);
+    });
+
+    let deduped = companies.map(({name, value}, i)=>{
+      if(i > 0){
+        let prevCompany = companies[i-1];
+        if(name === prevCompany.name){
+          let sum = parseInt(prevCompany.value) + parseInt(value);
+          return {name, value: sum};
+        }
+        else{ return {name: null, value: null}; }
+      }
+      else{ return { name, value: parseInt(value)}; }
+    });
+
+    let companiesDeduped = deduped.filter((obj, pos)=>{
+      return obj.name !== null; 
+    });
+
+    companiesDeduped.map((d)=>{
+      companyNames.push(d.name);
+    });
+
+    companiesDeduped.forEach(d=>{
       valueVisualisation.addContext({
-        name:d.basic.name,
-        value:d.pricePerformance.marketCap,
-      });
-      d3.select('.value-visualisation footer')
-        .text('*' + companyNames.join(', ') + ' valuation based on market cap data as of ' + dataTime);
-      valueVisContainer
-        .call(valueVisualisation);
-    })
-  });
+        name: d.name,
+        value: d.value,
+      })
+    d3.select('.value-visualisation footer')
+    .text('*' + companyNames.join(', ') + ' valuation based on market cap data as of ' + dataTime);
+
+    valueVisContainer
+    .call(valueVisualisation);
+  })
+});
 
 let chartContainerWidth = document.querySelector('.controls-oil').getBoundingClientRect().width;
 const componentWidth = (chartContainerWidth < 660) ? (chartContainerWidth - 15) : 660;
@@ -41,7 +68,7 @@ const taxRateButtons = document.querySelectorAll('.taxrate-button');
 const scenarioButtons = document.querySelectorAll('.scenario-button');
 
 //get the market data
-market('aapl,goog', true);
+market('aapl,goog,googl', true);
 
 //create the calculator
 const myCalc = calculator();
