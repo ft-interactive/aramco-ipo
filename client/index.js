@@ -64,7 +64,7 @@ const numberYearsConfigurable = 3;
 const valueVisContainer = d3.select('.value-visualisation svg');
 const controlsOil = document.querySelector('.controls-oil');
 const controlsTax = document.querySelector('.controls-tax');
-const taxRateButtons = document.querySelectorAll('.taxrate-button');
+const oilProdButtons = document.querySelectorAll('.oilprod-button');
 const scenarioButtons = document.querySelectorAll('.scenario-button');
 
 //get the market data
@@ -124,9 +124,9 @@ var generateYearList = function(){
   return yearlist;
 }
 
-var highlightSelected = function(chosenTaxRate, buttons){
+var highlightSelected = function(chosenOilProd, buttons){
   for(let i =0; i < buttons.length; i++){
-      if(chosenTaxRate == buttons[i].dataset.taxrate){
+      if(chosenOilProd == buttons[i].dataset.oilprod){
         buttons[i].classList.add('o-buttons--standout');
       }
       else {
@@ -169,8 +169,8 @@ controlsOil.appendChild(oilPriceChart.elements.container);
   })
 
  //Set up listener on tax rate buttons
-for(let i =0; i < taxRateButtons.length; i++){
-  taxRateButtons[i].addEventListener(
+for(let i =0; i < oilProdButtons.length; i++){
+  oilProdButtons[i].addEventListener(
     "click",
     function(){
       myCalc.updateState(this.dataset);
@@ -194,7 +194,7 @@ myCalc.getDispatcher()
     oilPriceChart.setYears(reformatData(event.years, 'oilPrice')).update();
 
     //update tax rate buttons
-    highlightSelected(event.years[0].taxRate, taxRateButtons);
+    highlightSelected(event.years[0].oilProduction, oilProdButtons);
 
     //update scenario buttons
     highlightSelectedScenario(event.scenario, scenarioButtons);

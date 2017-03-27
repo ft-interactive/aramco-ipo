@@ -74,18 +74,18 @@ $o-grid-is-silent: false;
   }
 }
 
-.scenario-button--holder, .taxrate-button--holder:first-child {
+.scenario-button--holder, .oilprod-button--holder:first-child {
   padding: 0;
 }
 
-.scenario-buttons, .taxrate-buttons {
+.scenario-buttons, .oilprod-buttons {
   margin-left: 0;
   margin-top: 1em;
   & .scenario-button, {
     width: 100%;
     margin-bottom: 10px;
   }
-  & .taxrate-button, {
+  & .oilprod-button, {
     width: 100%;
     margin-bottom: 10px;
   }
@@ -153,13 +153,13 @@ $o-grid-is-silent: false;
 }
 
 @include oGridRespondTo(S) {
-  .scenario-button--holder, .taxrate-button--holder {
+  .scenario-button--holder, .oilprod-button--holder {
     padding-left: 10px;
   }
   .scenario-button--holder:first-child {
     padding-left: 0;
   }
-  .scenario-buttons .scenario-button, .taxrate-buttons .taxrate-button {
+  .scenario-buttons .scenario-button, .oilprod-buttons .oilprod-button {
     margin-bottom: 0;
   }
 
