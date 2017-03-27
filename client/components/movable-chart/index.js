@@ -122,28 +122,40 @@ export default class MovableChart extends EventEmitter {
 			mouseCatcher.style.height = `${chartHeight}px`;
 			mouseCatcher.style.width = `${sliderWidth}px`;
 
-			const handleMouseEvent = (event) => {
+			// const handleMouseEvent = (event) => {
+			// 	event.preventDefault();
+			// 	this.emit('update', { year: years[i].label, value: yScale.invert(event.offsetY) });
+			// }
+
+			mouseCatcher.addEventListener(
+				'mousemove', 
+				(event) => {
+					if (!dragging) return;
+					event.preventDefault();
+					this.emit('update', { year: years[i].label, value: yScale.invert(event.offsetY) });
+			});
+
+			mouseCatcher.addEventListener(
+				'mousedown', 
+				(event) => {
+					dragging = true;
+					event.preventDefault();
+					this.emit('update', { year: years[i].label, value: yScale.invert(event.offsetY) });
+			});
+
+			mouseCatcher.addEventListener(
+				'mouseup', 
+				(event) => {
+					dragging = false;
+					event.preventDefault();
+					this.emit('update', { year: years[i].label, value: yScale.invert(event.offsetY) });
+			});
+
+			mouseCatcher.addEventListener(
+				'click', 
+				(event) => {
 				event.preventDefault();
 				this.emit('update', { year: years[i].label, value: yScale.invert(event.offsetY) });
-			}
-
-			mouseCatcher.addEventListener('mousemove', (event) => {
-				if (!dragging) return;
-				handleMouseEvent
-			});
-
-			mouseCatcher.addEventListener('mousedown', (event) => {
-				dragging = true;
-				handleMouseEvent
-			});
-
-			mouseCatcher.addEventListener('mouseup', (event) => {
-				dragging = false;
-				handleMouseEvent
-			});
-
-			mouseCatcher.addEventListener('click', (event) => {
-				handleMouseEvent
 			});
 
 			const handleTouchEvent = (event) => {
