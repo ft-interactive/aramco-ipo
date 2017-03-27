@@ -3,6 +3,10 @@ $o-grid-is-silent: false;
 @import 'components/core/main';
 @import 'o-grid/main';
 
+.article-body > :not(.graphic) {
+  padding: 0;
+}
+
 .o-typography-lead {
   font-size: 22px;
   line-height: 26px;
@@ -23,8 +27,13 @@ $o-grid-is-silent: false;
   margin-bottom: 12px;
 }
 
+.data-visualisation p:first-of-type {
+  margin-bottom: 1.5em;
+  margin-top: 0;
+}
+
 .section {
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 }
 
 .value-visualisation {
@@ -65,10 +74,18 @@ $o-grid-is-silent: false;
   }
 }
 
-.scenario-buttons, .taxrate-button {
+.scenario-button--holder, .taxrate-button--holder:first-child {
+  padding: 0;
+}
+
+.scenario-buttons, .taxrate-buttons {
   margin-left: 0;
   margin-top: 1em;
-  & .scenario-button {
+  & .scenario-button, {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  & .taxrate-button, {
     width: 100%;
     margin-bottom: 10px;
   }
@@ -127,9 +144,25 @@ $o-grid-is-silent: false;
     font-size: 40px;
     line-height: 42px;
   }
+  .section {
+    margin-bottom: 2em;
+    &.controls-oil {
+      margin-bottom: 1.5em;
+    }
+  }
 }
 
 @include oGridRespondTo(S) {
+  .scenario-button--holder, .taxrate-button--holder {
+    padding-left: 10px;
+  }
+  .scenario-button--holder:first-child {
+    padding-left: 0;
+  }
+  .scenario-buttons .scenario-button, .taxrate-buttons .taxrate-button {
+    margin-bottom: 0;
+  }
+
   .value-visualisation {
      &__amountLabel{
       font-size: 36px;
