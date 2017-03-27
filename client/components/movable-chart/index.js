@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 import EventEmitter from 'events';
 
-const margin = { top: 30, bottom: 30, left: 30, right: 10 };
+const margin = { top: 30, bottom: 10, left: 30, right: 10 };
 
 export default class MovableChart extends EventEmitter {
 	constructor({ name, width, height, min, max }) {
