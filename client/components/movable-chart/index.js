@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 import EventEmitter from 'events';
 
-const margin = { top: 30, bottom: 10, left: 30, right: 10 };
+const margin = { top: 30, bottom: 30, left: 30, right: 10 };
 
 export default class MovableChart extends EventEmitter {
 	constructor({ name, width, height, min, max }) {
@@ -10,7 +10,6 @@ export default class MovableChart extends EventEmitter {
 		const container = document.createElement('div');
 		container.classList.add('movable-chart');
 		container.style.position = 'relative';
-
 		this.name = name;
 		this.width = width;
 		this.height = height;
@@ -94,6 +93,7 @@ export default class MovableChart extends EventEmitter {
 				.selectAll('text')
 				.attr('y', -5);
 
+		//add connecting line
 		elements.connectingLine = elements.chartGroup.append('path')
 			.attr('class', 'movable-chart__connecting-line')
 			.attr('fill', 'none');
@@ -124,7 +124,7 @@ export default class MovableChart extends EventEmitter {
 
 			const handleMouseEvent = (event) => {
 				event.preventDefault();
-				this.emit('update', { year: years[i].label, value: yScale.invert(event.offsetY) });
+				this.emit('update', { year: years[i].label, value: yScale.invert(event.offsetY || event.layerY) });
 			}
 
 			mouseCatcher.addEventListener('mousemove', (event) => {
