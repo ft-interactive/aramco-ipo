@@ -39,9 +39,7 @@ export default class MovableChart extends EventEmitter {
 				.text(() => { 
 					if(name === 'oilPrice'){
 						return "$" + value.toFixed(0);
-					} else if(name === 'taxRate'){
-						return value.toFixed(0) + "%";
-					}  
+					} 
 				})
 				.attr('x', xScale(i))
 				.attr('y', yScale(value) + 25);
@@ -61,8 +59,8 @@ export default class MovableChart extends EventEmitter {
 		const xScale = index => (sliderWidth * index) + (sliderWidth / 2);
 		this.xScale = xScale;
 		this.yScale = yScale;
-		const priceAxis = d3.axisLeft(yScale);
 
+		const priceAxis = d3.axisLeft(yScale);
 		priceAxis.tickSize(-chartWidth);
 		priceAxis.ticks(5);
 
