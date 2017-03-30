@@ -6,6 +6,7 @@ import valueComparison from './components/value-comparison/index';
 import NPV from './components/calculator/npv';
 import MovableChart from './components/movable-chart';
 import gaEventTracking from './components/core/ga-custom-tracking';
+import flags from '../config/flags.js';
 
 //set up the visualisation drawer
 const valueVisualisation = valueComparison()
@@ -67,7 +68,7 @@ const myCalc = calculator();
 d3.selectAll('.scenario-button')
   .on('click',function(){
     myCalc.updateState(this.dataset);
-    gaEventTracking('ScenarioButtons', 'valueChange', 'IPO Calculator');
+    if(flags.googleAnalytics === true) gaEventTracking('ScenarioButtons', 'valueChange', 'IPO Calculator');
   });
 
 //For moveable charts reconfigure properties so they can be read
@@ -157,7 +158,7 @@ controlsOil.appendChild(oilPriceChart.elements.container);
       year: payload.year,
       oilPrice: payload.value
     });
-    gaEventTracking('MovableChart', 'valueChange', 'IPO Calculator');
+    if(flags.googleAnalytics === true) gaEventTracking('MovableChart', 'valueChange', 'IPO Calculator');
   })
 
  //Set up listener on oil production buttons
@@ -166,7 +167,7 @@ for(let i =0; i < oilProdButtons.length; i++){
     "click",
     function(){
       myCalc.updateState(this.dataset);
-      gaEventTracking('Variable2Buttons', 'valueChange', 'IPO Calculator');
+      if(flags.googleAnalytics === true) gaEventTracking('Variable2Buttons', 'valueChange', 'IPO Calculator');
      }
   )
 };
