@@ -142,7 +142,7 @@ var highlightSelectedScenario = function(scenario, buttons){
 const oilPriceChart = new MovableChart({
     name: 'oilPrice',
     width: componentWidth,
-    height: 200,
+    height: 220,
     min: 20,
     max: 100,
   });

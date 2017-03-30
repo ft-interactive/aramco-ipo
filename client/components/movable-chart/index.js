@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 import EventEmitter from 'events';
 
-const margin = { top: 30, bottom: 30, left: 30, right: 10 };
+const margin = { top: 20, bottom: 25, left: 30, right: 10 };
 
 export default class MovableChart extends EventEmitter {
 	constructor({ name, width, height, min, max }) {
@@ -62,7 +62,7 @@ export default class MovableChart extends EventEmitter {
 
 		const priceAxis = d3.axisLeft(yScale);
 		priceAxis.tickSize(-chartWidth);
-		priceAxis.ticks(5);
+		priceAxis.tickValues([20,40,60,80,100])
 
 		elements.container.innerHTML = '';
 
