@@ -40,7 +40,7 @@ const market = marketData.marketdata('5d32d7c412')
 
     valueVisContainer.call(valueVisualisation);
 
-    const dataTime = d3.timeFormat('%e %B %Y')
+    const dataTime = d3.timeFormat('%B %e %Y')
       (d3.isoParse(response.timeGenerated));
 
     d3.select('.value-visualisation footer')
