@@ -122,7 +122,10 @@ export default class MovableChart extends EventEmitter {
 
 			const handleMouseEvent = (event) => {
 				event.preventDefault();
-				this.emit('update', { year: years[i].label, value: yScale.invert(event.offsetY || event.layerY) });
+				let clickDistance = event.offsetY || event.layerY;
+				if (clickDistance > chartHeight){ return max }
+				else if(clickDistance < 0 ){ return min }
+				this.emit('update', { year: years[i].label, value: yScale.invert(clickDistance) });
 			}
 
 			mouseCatcher.addEventListener('mousemove', (event) => {
