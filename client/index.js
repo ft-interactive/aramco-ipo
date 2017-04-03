@@ -1,5 +1,6 @@
 
 import * as d3 from 'd3';
+import marketData from './components/marketdata-getter';
 import config from './components/calculator/config';
 import calculator from './components/calculator/index';
 import valueComparison from './components/value-comparison/index';
@@ -11,8 +12,7 @@ import gaEventTracking from './components/core/ga-custom-tracking';
 const valueVisualisation = valueComparison()
   .addValue({name:'aramco', value:0});
 
-const marketData = require('marketdata-getter');
-const market = marketData.marketdata('5d32d7c412')
+const market = marketData('5d32d7c412')
   .callback((response)=>{
     let appleValue = 0;
     let alphabetValue = 0;

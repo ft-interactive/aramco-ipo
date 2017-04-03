@@ -89,7 +89,7 @@
     "test": "npm run lint && npm run build"
   },
   "dependencies": {
-    "marketdata-getter": "git+https://github.com/ft-interactive/marketdata-getter.git",
-    "d3": "^4.7.1"
+    "d3": "^4.7.1",
+    "d3-request": "^1.0.5"
   }
 }

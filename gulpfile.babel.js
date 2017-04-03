@@ -49,7 +49,6 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const copyGlob = OTHER_SCRIPTS.concat([
   'client/**/*',
   '!client/**/*.{html,scss}',
-  ...BROWSERIFY_ENTRIES.map(name => `!client/${name}`),
 
   // REPLACE: if using imagmin
   // '!client/**/*.{jpg,png,gif,svg}',
