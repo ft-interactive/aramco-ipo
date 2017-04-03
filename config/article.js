@@ -15,7 +15,7 @@ export default () => ({ // eslint-disable-line
 
   // summary === standfirst (Summary is what the content API calls it)
   summary: //'Saudi State oil company Aramco is likely to be the biggest company in the world when it goes to IPO next year. ' +
-  'Play with the factors that could push Saudi oil company Aramco to be the world\'s biggest company', 
+  'Play with the factors that could push Saudi oil producer Aramco to be the world\'s biggest company', 
 
   topic: {
     name: 'Saudi Aramco IPO',
