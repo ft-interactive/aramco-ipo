@@ -38,7 +38,7 @@ export default () => ({ // eslint-disable-line
   // Byline can by a plain string, markdown, or array of authors
   // if array of authors, url is optional
   byline: [
-    { name: 'Anna Leach' },
+    { name: 'Anna Leach', url: 'https://www.ft.com/stream/authorsId/ZmVkNjE2NmMtYmQyMC00M2UyLTkzM2QtNDEwMmM0MWYzY2Y1-QXV0aG9ycw==' },
     { name: 'Alan Livsey', url: 'https://www.ft.com/stream/authorsId/OTFlYjViMWEtYWZmOC00ODQwLWJjOTktNGVmYTc4ZjlhZjEy-QXV0aG9ycw==' },
     { name: 'Steve Bernard', url: 'https://www.ft.com/steve-bernard' },
     { name: 'Tom Pearson', url: 'https://www.ft.com/tom-pearson' },
@@ -64,19 +64,19 @@ export default () => ({ // eslint-disable-line
         optional social meta data?
   */
   // General social
-//socialImage: '',
+socialImage: 'https://www.ft.com/__origami/service/image/v2/images/raw/ftcms%3A4240968e-13ac-11e7-b0c1-37e417ee6c76?source=ig&width=1400',
 socialHeadline: 'IPO calculator: how much will Saudi Aramco be worth?',
 socialSummary:  'Saudi Aramco is set to become the world’s largest company, how big is up to you.',
 
   // TWITTER
-  // twitterImage: '',
+twitterImage: 'https://www.ft.com/__origami/service/image/v2/images/raw/ftcms%3A4240968e-13ac-11e7-b0c1-37e417ee6c76?source=ig&width=1400',
 twitterCreator: '@ftlex',
 tweetText:  'Saudi Aramco is set to become the world’s largest company, how big is up to you.',
 twitterHeadline:  'IPO calculator: how much will Saudi Aramco be worth?',
 
   // FACEBOOK
-  // facebookImage: '',
-  // facebookHeadline: '',
+facebookImage: 'https://www.ft.com/__origami/service/image/v2/images/raw/ftcms%3A4240968e-13ac-11e7-b0c1-37e417ee6c76?source=ig&width=1400',
+facebookHeadline: 'IPO calculator: how much will Saudi Aramco be worth?',
 
   tracking: {
 
