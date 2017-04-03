@@ -6,7 +6,6 @@ import valueComparison from './components/value-comparison/index';
 import NPV from './components/calculator/npv';
 import MovableChart from './components/movable-chart';
 import gaEventTracking from './components/core/ga-custom-tracking';
-import flags from '../config/flags.js';
 
 //set up the visualisation drawer
 const valueVisualisation = valueComparison()
@@ -17,7 +16,7 @@ const market = marketData.marketdata('5d32d7c412')
   .callback((response)=>{
     let appleValue = 0;
     let alphabetValue = 0;
-    
+
     response.data.items.forEach((d,i)=>{
       if (d.symbolInput === 'aapl') {
         appleValue += Number(d.pricePerformance.marketCap);
@@ -27,7 +26,7 @@ const market = marketData.marketdata('5d32d7c412')
       }
       else throw new Error(`Unexpected ticker symbol in results: ${d.symbolInput}`);
     });
-    
+
     valueVisualisation.addContext({
       name: 'Apple',
       value: appleValue,
@@ -68,7 +67,7 @@ const myCalc = calculator();
 d3.selectAll('.scenario-button')
   .on('click',function(){
     myCalc.updateState(this.dataset);
-    if(flags.googleAnalytics === true) gaEventTracking('ScenarioButtons', 'valueChange', 'IPO Calculator');
+    gaEventTracking('ScenarioButtons', 'valueChange', 'IPO Calculator');
   });
 
 //For moveable charts reconfigure properties so they can be read
@@ -158,7 +157,7 @@ controlsOil.appendChild(oilPriceChart.elements.container);
       year: payload.year,
       oilPrice: payload.value
     });
-    if(flags.googleAnalytics === true) gaEventTracking('MovableChart', 'valueChange', 'IPO Calculator');
+    gaEventTracking('MovableChart', 'valueChange', 'IPO Calculator');
   })
 
  //Set up listener on oil production buttons
@@ -167,7 +166,7 @@ for(let i =0; i < oilProdButtons.length; i++){
     "click",
     function(){
       myCalc.updateState(this.dataset);
-      if(flags.googleAnalytics === true) gaEventTracking('Variable2Buttons', 'valueChange', 'IPO Calculator');
+      gaEventTracking('Variable2Buttons', 'valueChange', 'IPO Calculator');
      }
   )
 };
