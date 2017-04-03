@@ -1,6 +1,6 @@
 # [aramco-ipo](https://ig.ft.com/sites/aramco-ipo)
 
-> "IPO calculator for Aramco"
+> [IPO calculator for Saudi Aramco](https://ig.ft.com/saudi-aramco-ipo-calculator/), part of a [Lex In Depth story package](https://www.ft.com/content/7ed59bee-163b-11e7-b0c1-37e417ee6c76).
 
 [![Build Status][circle-image]][circle-url] [![Dependency Status][devdeps-image]][devdeps-url]
 
