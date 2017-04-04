@@ -66,7 +66,7 @@ const myCalc = calculator();
 //Set up listener on the scenario buttons
 d3.selectAll('.scenario-button')
   .on('click',function(){
-    myCalc.updateState(this.dataset);
+    myCalc.updateState({scenario: this.getAttribute("data-scenario")} );
     gaEventTracking('ScenarioButtons', 'valueChange', 'IPO Calculator');
   });
 
@@ -117,7 +117,8 @@ var generateYearList = function(){
 
 var highlightSelected = function(chosenOilProd, buttons){
   for(let i =0; i < buttons.length; i++){
-      if(chosenOilProd == buttons[i].dataset.oilprod){
+    let buttonValue = buttons[i].getAttribute("data-oilprod");
+      if(chosenOilProd == buttonValue){
         buttons[i].classList.add('o-buttons--standout');
       }
       else {
@@ -128,7 +129,8 @@ var highlightSelected = function(chosenOilProd, buttons){
 
 var highlightSelectedScenario = function(scenario, buttons){
   for(let i=0; i<buttons.length; i++){
-    if(scenario == buttons[i].dataset.scenario){
+    let buttonValue = buttons[i].getAttribute("data-scenario");
+    if(scenario == buttonValue){
         buttons[i].classList.add('o-buttons--standout');
       }
       else {
@@ -165,7 +167,7 @@ for(let i =0; i < oilProdButtons.length; i++){
   oilProdButtons[i].addEventListener(
     "click",
     function(){
-      myCalc.updateState(this.dataset);
+      myCalc.updateState( {oilprod: this.getAttribute("data-oilprod")} );
       gaEventTracking('Variable2Buttons', 'valueChange', 'IPO Calculator');
      }
   )

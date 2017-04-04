@@ -139,9 +139,12 @@ export default class MovableChart extends EventEmitter {
 				}
 			);
 
-			mouseCatcher.addEventListener(
-				'mouseup', 
-				(event) => {
+			mouseCatcher.addEventListener('mouseup', (event) => {
+					dragging = false;
+				}
+			);
+
+			mouseCatcher.addEventListener('mouseout', (event) => {
 					dragging = false;
 				}
 			);
